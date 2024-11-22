@@ -45,7 +45,7 @@ public class Calculator {
 
     public static void main(String[] args) throws Exception {
 
-        String expression = "345.051505+2*-(4--15)+5^7";
+        String expression = "345+-2*(4--15+-(23+(3-1))+1)+5^7";
         ArrayList<String> expressionList = new ArrayList<String>();
 
         Character[] operators = {'*','/','+','-', '^'};
@@ -67,15 +67,19 @@ public class Calculator {
 
                     if (c == '-' && !doubleMinusFlag) {
                         doubleMinusFlag = true;
+                        expressionList.add(String.valueOf(c));
 
                     } else if (c == '-'){
                         throw new Exception("U dumb fuck -");
 
+                    } else if ((c == ')') || (c == '(')){
+                        doubleMinusFlag = false;
+                        expressionList.add(String.valueOf(c));
                     } else {
                         throw new Exception("U dumb fuck");
                     }
 
-                    //lasthit = i;
+                    lasthit = i+1;
 
                 } else {
 
@@ -105,23 +109,29 @@ public class Calculator {
 
         // Do a pass of the resulting list as there can be - - beside each other.
         boolean minusFlag = false;
+        boolean lastOperator = false;
         for (int i = 0; i < expressionList.size(); i++) {
             String item = expressionList.get(i);
             // Compare with null checking - Good practice
             if (Objects.equals(item, "-")) {
                 if (minusFlag) {
                     // remove the double minus as it cancels out
-                    expressionList.remove(i-1);
                     expressionList.remove(i);
+                    expressionList.set(i-1,"+");
                     minusFlag = false;
                 } else {
                     minusFlag = true;
                 }
-            } else if (!Arrays.asList("+", "-", "*", "/", "^", ")").contains(item) && minusFlag && !item.contains("-")) {
+            } else if (!Arrays.asList("+", "-", "*", "/", "^", ")").contains(item) && minusFlag && !item.contains("-") && lastOperator) {
                 expressionList.set(i,"-"+expressionList.get(i));
                 expressionList.remove(i - 1);
                 minusFlag = false;
-            }else {
+                lastOperator = false;
+            }else if (Arrays.asList("+", "-", "*", "/", "^", ")").contains(item)){
+                lastOperator = true;
+                minusFlag = false;
+            } else {
+                lastOperator = false;
                 minusFlag = false;
             }
         }
@@ -139,14 +149,21 @@ public class Calculator {
                 for(int j = i; j < expressionList.size(); j++) {
                     if (expressionList.get(j).equals(")")){
                         endIndex = j;
+                        break;
                     } else if (expressionList.get(j).equals("(") || expressionList.get(j).equals("-(")) {
                         startIndex = j;
                     }
                 }
 
+                System.out.println("i:"+i+"start:"+startIndex+"endIndex:"+endIndex);
+                System.out.println("Mainlist: "+expressionList);
                 workingList = new ArrayList<>(expressionList.subList(startIndex+1, endIndex));
+
                 System.out.println("Sublist"+workingList);
                 String response = mathSolver(workingList);
+                if (expressionList.get(startIndex).equals("-(")){
+                    response = String.valueOf(Double.parseDouble(response) * -1);
+                }
                 expressionList.add(endIndex+1, response);
                 expressionList.subList(startIndex, endIndex+1).clear();
 
@@ -154,8 +171,10 @@ public class Calculator {
             }
         }
 
+        String result = mathSolver(expressionList);
 
-        System.out.println("\nResulting List: "+expressionList);
+
+        System.out.println("\nResulting List: "+result);
 
     }
 }
