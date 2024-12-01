@@ -55,7 +55,7 @@ public class arithmeticCalculator extends Calculator {
        return expressionList;
    }
 
-   public void mathSolver(ArrayList<String> expressionList) {
+   public String mathSolver(ArrayList<String> expressionList) {
 
        int startIndex = 0;
        int endIndex = expressionList.size();
@@ -92,7 +92,14 @@ public class arithmeticCalculator extends Calculator {
 
        String result = finalMathSolver(expressionList);
        System.out.println("\nResulting List: "+result);
-       //return result;
+       return result;
+   }
+
+   public String solve(String expression) throws Exception{
+       ArrayList<String> workingList;
+       workingList = parse();
+       workingList = validate(workingList);
+       return(mathSolver(workingList));
    }
 
 

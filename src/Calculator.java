@@ -27,42 +27,41 @@ public class Calculator {
         return expressionList;
     }
 
-    public String finalMathSolver(ArrayList<String> expressionList){
-        for(String Operator: getOrderOfOperations()) {
-            for (int i = 0; i < expressionList.size(); i++) {
-                if (expressionList.get(i).equals(Operator)){
+    public String finalMathSolver(ArrayList<String> expressionList) {
+        for (String operator : orderOfOperations) {
+            int i = 0; // Start at the beginning of the list for each operator
+            while (i < expressionList.size()) {
+                if (expressionList.get(i).equals(operator)) {
+                    // Parse operands
+                    double a = Double.parseDouble(expressionList.get(i - 1));
+                    double b = Double.parseDouble(expressionList.get(i + 1));
+                    double result = 0;
 
-                    double a = Double.parseDouble(expressionList.get(i-1));
-                    double b = Double.parseDouble(expressionList.get(i+1));
-
-                    switch (expressionList.get(i)) {
-                        case "^" -> {
-                            expressionList.set(i, String.valueOf(Math.pow(a, b)));
-                        }
-                        case "*" -> {
-                            expressionList.set(i, String.valueOf(a * b));
-                        }
-                        case "/" -> {
-                            expressionList.set(i, String.valueOf(a / b));
-                        }
-                        case "+" -> {
-                            expressionList.set(i, String.valueOf(a + b));
-                        }
-                        case "-" -> {
-                            expressionList.set(i, String.valueOf(a - b));
-                        }
+                    // Perform the operation
+                    switch (operator) {
+                        case "^" -> result = Math.pow(a, b);
+                        case "*" -> result = a * b;
+                        case "/" -> result = a / b;
+                        case "+" -> result = a + b;
+                        case "-" -> result = a - b;
                     }
 
-                    // Special order if you switch it will break horribly :(
-                    expressionList.remove(i + 1);
-                    expressionList.remove(i - 1);
+                    // Replace the operator and operands with the result
+                    expressionList.set(i, String.valueOf(result));
+                    expressionList.remove(i + 1); // Remove the operand after the operator
+                    expressionList.remove(i - 1); // Remove the operand before the operator
 
-                    i = 0; //Don't ask I am already ashamed
+                    // Adjust index to recheck the current position
+                    i = 0;
                     System.out.println("List: " + expressionList);
+                } else {
+                    i++; // Move to the next element
                 }
             }
         }
-        return expressionList.getFirst();
+
+        // Ensure there is only one element left in the list, the final result
+        return expressionList.get(0);
     }
 
     public static void main(String[] args) throws Exception {
