@@ -18,19 +18,20 @@ public class CalculatorInterface {
         int optionSelected;
 
         System.out.print("What do you want to do ?" +
-                "\n 1: Arithmetic Calculator" +
+                "\n\n 1: Arithmetic Calculator" +
                 "\n 2: Algebraic Calculator" +
                 "\n 3: Arithmetic Game" +
                 "\n 4: Other Useful Calculations" +
                 "\n 0: Exit"+
-                "\n\n Select an option: ");
+                "\n\nSelect an option: ");
         optionSelected = scanner.nextInt();
 
         while (optionSelected != 0){
             switch (optionSelected){
                 case 1:
+                    scanner.nextLine();  // discard newline
                     System.out.print("\nYou Selected the Arithmetic Calculator: "+"\nPlease type in your expression to solve: ");
-                    String expression = scanner.next();
+                    String expression = scanner.nextLine();
                     arithmeticCalculator calculator = new arithmeticCalculator(expression);
                     calculator.solve(expression);
                 default:

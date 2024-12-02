@@ -17,6 +17,12 @@ public class inputParser {
         boolean doubleMinusFlag = false;
         String lastCharacter = "";
 
+        // some cleanup - set all to lowercase and remove whitespaces
+        expression = expression.toLowerCase();
+        expression = expression.replaceAll("\\s+","");
+
+        System.out.println(expression);
+
         for(int i = 0; i < expression.length(); i++){
 
             String c = String.valueOf(expression.charAt(i));
