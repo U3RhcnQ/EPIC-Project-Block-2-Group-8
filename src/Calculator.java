@@ -12,10 +12,6 @@ public class Calculator {
     );
     private ArrayList<String> expressionList = new ArrayList<String>();
 
-    public Calculator(String expression) throws Exception{
-        this.expression = expression;
-    }
-
     public String getExpression() {
         return expression;
     }
@@ -24,12 +20,16 @@ public class Calculator {
         return orderOfOperations;
     }
 
+    public ArrayList<String> getExpressionList() {
+        return expressionList;
+    }
+
     public void setOrderOfOperations(List<List<String>> newListOfOperators) {
         this.orderOfOperations = newListOfOperators;
     }
 
-    public ArrayList<String> getExpressionList() {
-        return expressionList;
+    public Calculator(String expression) throws Exception{
+        this.expression = expression;
     }
 
 
