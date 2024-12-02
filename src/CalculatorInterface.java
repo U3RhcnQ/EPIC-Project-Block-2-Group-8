@@ -33,8 +33,9 @@ public class CalculatorInterface {
                     System.out.print("\nYou Selected the Arithmetic Calculator: "+"\nPlease type in your expression to solve: ");
                     String expression = scanner.nextLine();
                     arithmeticCalculator calculator = new arithmeticCalculator(expression);
-                    calculator.solve(expression);
+                    System.out.println("The solution is: "+calculator.solve());
                 default:
+                    System.out.print("\nSorry your input was invalid can you try again?\nSelect an option: ");
                     optionSelected = scanner.nextInt();
             }
         }

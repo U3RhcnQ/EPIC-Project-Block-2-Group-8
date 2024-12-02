@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class arithmeticCalculator extends Calculator {
@@ -12,11 +12,16 @@ public class arithmeticCalculator extends Calculator {
         return inputParser.parseFromString(getExpression(), getOrderOfOperations());
     }
 
-   public ArrayList<String> validate(ArrayList<String> expressionList) throws Exception{
+   public ArrayList<String> validate(ArrayList<String> expressionList, List<List<String>> operatorsList) throws Exception{
 
        // Do a pass of the resulting list as there can be - - beside each other.
        boolean minusFlag = false;
        boolean lastOperator = false;
+       ArrayList<String> operators = new ArrayList<>();
+
+       for (List<String> innerOperatorsList : operatorsList) {
+           operators.addAll(innerOperatorsList);
+       }
 
        for (int i = 0; i < expressionList.size(); i++) {
            String item = expressionList.get(i);
@@ -32,14 +37,14 @@ public class arithmeticCalculator extends Calculator {
                    minusFlag = true;
                }
 
-           } else if (!Arrays.asList(getOrderOfOperations()).contains(item) && !item.equals(")") && minusFlag && !item.contains("-") && lastOperator) {
+           } else if (!operators.contains(item) && !item.equals(")") && minusFlag && !item.contains("-") && lastOperator) {
 
                expressionList.set(i,"-"+expressionList.get(i));
                expressionList.remove(i - 1);
                minusFlag = false;
                lastOperator = false;
 
-           }else if (Arrays.asList(getOrderOfOperations()).contains(item) || item.equals(")")){
+           }else if (operators.contains(item) || item.equals(")")){
 
                lastOperator = true;
                minusFlag = false;
@@ -75,7 +80,7 @@ public class arithmeticCalculator extends Calculator {
                }
 
                System.out.println("i:"+i+"start:"+startIndex+"endIndex:"+endIndex);
-               System.out.println("Mainlist: "+expressionList);
+               System.out.println("Main list: "+expressionList);
                workingList = new ArrayList<>(expressionList.subList(startIndex+1, endIndex));
 
                System.out.println("Sublist"+workingList);
@@ -95,10 +100,10 @@ public class arithmeticCalculator extends Calculator {
        return result;
    }
 
-   public String solve(String expression) throws Exception{
+   public String solve() throws Exception{
        ArrayList<String> workingList;
        workingList = parse();
-       workingList = validate(workingList);
+       workingList = validate(workingList, getOrderOfOperations());
        return(mathSolver(workingList));
    }
 

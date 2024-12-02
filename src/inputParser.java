@@ -1,21 +1,21 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 public class inputParser {
 
     private String expression;
-    private String[] orderOfOperations = {"^", "*", "/", "+", "-"};
 
     public inputParser(){
 
     }
 
-    public static ArrayList<String> parseFromString(String expression, String[] operators) throws Exception {
+    public static ArrayList<String> parseFromString(String expression, List<List<String>> operatorsList) throws Exception {
 
         ArrayList<String> expressionList = new ArrayList<String>();
         int lasthit = 0;
         boolean doubleMinusFlag = false;
         String lastCharacter = "";
+        ArrayList<String> operators = new ArrayList<>();
 
         // some cleanup - set all to lowercase and remove whitespaces
         expression = expression.toLowerCase();
@@ -23,13 +23,16 @@ public class inputParser {
 
         System.out.println(expression);
 
+        for (List<String> innerOperatorsList : operatorsList) {
+            operators.addAll(innerOperatorsList);
+        }
+        System.out.println(operators);
+
         for(int i = 0; i < expression.length(); i++){
 
             String c = String.valueOf(expression.charAt(i));
-            //System.out.println(i);
-            //System.out.println(c+"_"+lastCharacter);
 
-            if (Arrays.asList(operators).contains(c) || c.equals("(") || c.equals(")")){
+            if (operators.contains(c) || c.equals("(") || c.equals(")")){
                 //System.out.println("Debug print 1: "+c);
                 if (lastCharacter.equals(c)){
 
