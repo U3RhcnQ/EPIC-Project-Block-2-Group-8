@@ -4,24 +4,22 @@ import java.util.Objects;
 
 public class arithmeticCalculator extends Calculator {
 
-    public arithmeticCalculator(String expression) throws Exception{
+    public arithmeticCalculator(String expression) {
         super(expression);
     }
 
-    public ArrayList<String> parse() throws Exception{
-        return inputParser.parseFromString(getExpression(), getOrderOfOperations());
+    public void parse() throws Exception {
+        setExpressionList(inputParser.parseFromString(getExpression(), getOrderOfOperations()));
     }
 
-   public ArrayList<String> validate(ArrayList<String> expressionList, List<List<String>> operatorsList) throws Exception{
+   public void validate(){
+
+       ArrayList<String> expressionList = getExpressionList();
+       List<String> operators = getSimpleOrderOfOperations();
 
        // Do a pass of the resulting list as there can be - - beside each other.
        boolean minusFlag = false;
        boolean lastOperator = false;
-       ArrayList<String> operators = new ArrayList<>();
-
-       for (List<String> innerOperatorsList : operatorsList) {
-           operators.addAll(innerOperatorsList);
-       }
 
        for (int i = 0; i < expressionList.size(); i++) {
            String item = expressionList.get(i);
@@ -31,6 +29,7 @@ public class arithmeticCalculator extends Calculator {
                if (minusFlag) {
                    // remove the double minus as it cancels out
                    expressionList.remove(i);
+                   i--;
                    expressionList.set(i-1,"+");
                    minusFlag = false;
                } else {
@@ -56,15 +55,18 @@ public class arithmeticCalculator extends Calculator {
 
            }
        }
-       System.out.println("\nResulting List After Check: "+expressionList);
-       return expressionList;
+       System.out.println("\nWe now check the list for any double minuses and other small things\nResulting list after the check:  "+expressionList);
+       System.out.println("Let's start solving it now");
+       setExpressionList(expressionList);
    }
 
-   public String mathSolver(ArrayList<String> expressionList) {
+   public String mathSolver() {
 
+       ArrayList<String> expressionList = getExpressionList();
        int startIndex = 0;
        int endIndex = expressionList.size();
        ArrayList<String> workingList;
+
 
        for(int i = 0; i < expressionList.size(); i++) {
 
@@ -79,32 +81,33 @@ public class arithmeticCalculator extends Calculator {
                    }
                }
 
-               System.out.println("i:"+i+"start:"+startIndex+"endIndex:"+endIndex);
-               System.out.println("Main list: "+expressionList);
+               //System.out.println("i:"+i+"start:"+startIndex+"endIndex:"+endIndex);
+               System.out.println("\nCurrent list: "+expressionList);
                workingList = new ArrayList<>(expressionList.subList(startIndex+1, endIndex));
 
-               System.out.println("Sublist"+workingList);
+               System.out.println("We found brackets so we will solve those first:\nThe Contents of the brackets: "+workingList);
                String response = finalMathSolver(workingList);
                if (expressionList.get(startIndex).equals("-(")){
                    response = String.valueOf(Double.parseDouble(response) * -1);
                }
                expressionList.add(endIndex+1, response);
                expressionList.subList(startIndex, endIndex+1).clear();
+               setExpressionList(expressionList);
 
                i = 0;
            }
        }
 
+       setExpressionList(expressionList);
        String result = finalMathSolver(expressionList);
        System.out.println("\nResulting List: "+result);
        return result;
    }
 
    public String solve() throws Exception{
-       ArrayList<String> workingList;
-       workingList = parse();
-       workingList = validate(workingList, getOrderOfOperations());
-       return(mathSolver(workingList));
+       parse();
+       validate();
+       return(mathSolver());
    }
 
 

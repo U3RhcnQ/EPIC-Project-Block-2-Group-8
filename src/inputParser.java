@@ -21,12 +21,11 @@ public class inputParser {
         expression = expression.toLowerCase();
         expression = expression.replaceAll("\\s+","");
 
-        System.out.println(expression);
+        System.out.println("\nLet's solve the following: "+expression);
 
         for (List<String> innerOperatorsList : operatorsList) {
             operators.addAll(innerOperatorsList);
         }
-        System.out.println(operators);
 
         for(int i = 0; i < expression.length(); i++){
 
@@ -60,7 +59,7 @@ public class inputParser {
                     doubleMinusFlag = false;
 
                 }
-                System.out.println("List: " + expressionList);
+                //System.out.println("List: " + expressionList);
             }
             lastCharacter = c;
         }
@@ -70,7 +69,7 @@ public class inputParser {
             expressionList.add(expression.substring(lasthit));
         }
 
-        System.out.println("Resulting List Before Check: "+expressionList);
+        System.out.println("\nWe converted the expression to the following list that we will now work with\nThis is what we have now: "+expressionList);
         return expressionList;
     }
 

@@ -4,40 +4,57 @@ import java.util.List;
 
 public class Calculator {
 
-    private String expression = "";
+    // We initialise the order of operations to the standard operations order by default but let us change it later
     private List<List<String>> orderOfOperations = List.of(
             List.of("^"),
             List.of("*", "/"),
             List.of("+", "-")
     );
+    private List<String> orderOfOperationsSimple = List.of("^","*","/","+","-");
+
+    private String expression = "";
     private ArrayList<String> expressionList = new ArrayList<String>();
+
 
     public String getExpression() {
         return expression;
     }
 
     public List<List<String>> getOrderOfOperations() {
-        return orderOfOperations;
+        return this.orderOfOperations;
     }
 
-    public ArrayList<String> getExpressionList() {
-        return expressionList;
+    public List<String> getSimpleOrderOfOperations() {
+        return this.orderOfOperationsSimple;
     }
+
+    public ArrayList<String> getExpressionList() {return this.expressionList;}
+
+    public void setExpressionList(ArrayList<String> expressionList) {this.expressionList = expressionList;}
 
     public void setOrderOfOperations(List<List<String>> newListOfOperators) {
         this.orderOfOperations = newListOfOperators;
+
+        // if we update the order of operations we need to update the simple list as well
+        // We do this by building out a new list from all the inner lists
+        ArrayList<String> operators = new ArrayList<>();
+        for (List<String> innerOperatorsList : newListOfOperators) {
+            operators.addAll(innerOperatorsList);
+        }
+
+        this.orderOfOperationsSimple = operators;
     }
 
-    public Calculator(String expression) throws Exception{
+    public Calculator(String expression){
         this.expression = expression;
     }
-
 
     public String finalMathSolver(ArrayList<String> expressionList){
 
         for (List<String> innerOperatorsList : getOrderOfOperations()) {
             for (int i = 0; i < expressionList.size(); i++) {
                 if (innerOperatorsList.contains(expressionList.get(i))) {
+
                     double a = Double.parseDouble(expressionList.get(i - 1));
                     double b = Double.parseDouble(expressionList.get(i + 1));
                     double result = 0;
@@ -61,6 +78,7 @@ public class Calculator {
                 }
             }
         }
+
         // Ensure there is only one element left in the list, the final result
         return expressionList.getFirst();
     }
