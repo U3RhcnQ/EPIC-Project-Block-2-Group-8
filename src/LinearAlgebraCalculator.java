@@ -25,6 +25,14 @@ public class LinearAlgebraCalculator {
 
             } else if (varNum.equals("2")) {
                 // For 2 variables
+
+                /*
+                | a  b |
+                | c  d |
+
+                 */
+
+
                 System.out.println("Enter coefficients for the first equation (ax + by = d): ");
                 System.out.print("a: ");
                 float a1 = scanner.nextFloat();
@@ -41,15 +49,14 @@ public class LinearAlgebraCalculator {
                 System.out.print("d: ");
                 float d2 = scanner.nextFloat();
 
-                float L1 = a2 / a1;
-                float newA2 = a2 - (L1 * a1);
-                float newB2 = b2 - (L1 * b1);
-                float newD2 = d2 - (L1 * d1);
-
-                float y = newD2 / newB2;
-                float x = (d1 - (b1 * y)) / a1;
-
-                System.out.println("Solution: x = " + x + ", y = " + y);
+                float determinant = (a1 * b2) - (a2 * b1);
+                if (determinant == 0) {
+                    System.out.println("No unique solution exists (either no solution or infinitely many solutions).");
+                } else {
+                    float x = (d1 * b2 - d2 * b1) / determinant;
+                    float y = (a1 * d2 - a2 * d1) / determinant;
+                    System.out.println("Solution: \nx = " + x + "\n y = " + y);
+                }
 
             } else if (varNum.equals("3")) {
                 // For 3 variables
@@ -123,6 +130,8 @@ public class LinearAlgebraCalculator {
                 float z = g3 / finalC3;
                 float y = (g2 - (newC2 * z)) / newB2;
                 float x = (g1 - ((c1 * z) + (b1 * y))) / a1;
+
+                System.out.println();
 
                 System.out.println("Solution: \nx = " + x + "\ny = " + y + "\nz = " + z);
 
