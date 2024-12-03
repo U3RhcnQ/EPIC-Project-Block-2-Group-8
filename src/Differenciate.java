@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Integration {
+public class Differenciate {
     static String equation = "2x^2+6x-1";
 
 
