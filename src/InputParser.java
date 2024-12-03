@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class inputParser {
+public class InputParser {
 
     public static ArrayList<String> parseFromString(String expression, List<String> operators, String specialChars) throws Exception {
 

@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class arithmeticCalculator extends Calculator {
+public class ArithmeticCalculator extends Calculator {
 
-    public arithmeticCalculator(String expression) {
+    public ArithmeticCalculator(String expression) {
         super(expression);
     }
 
     public void parse() throws Exception {
-        setExpressionList(inputParser.parseFromString(getExpression(), getSimpleOrderOfOperations() , ""));
+        setExpressionList(InputParser.parseFromString(getExpression(), getSimpleOrderOfOperations() , ""));
     }
 
    public void validate() throws Exception {

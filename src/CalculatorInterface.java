@@ -50,7 +50,7 @@ public class CalculatorInterface {
                     scanner.nextLine();  // discard newline
                     System.out.print("\nYou Selected the Arithmetic Calculator: "+"\nPlease type in your expression to solve: ");
                     String expression = scanner.nextLine();
-                    arithmeticCalculator calculator = new arithmeticCalculator(expression);
+                    ArithmeticCalculator calculator = new ArithmeticCalculator(expression);
                     try {
                         System.out.println("\nWe have nothing left to do !\nSo the solution is: " + calculator.solve() + "\nWasn't that easy ?");
 
