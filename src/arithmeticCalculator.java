@@ -12,7 +12,7 @@ public class arithmeticCalculator extends Calculator {
         setExpressionList(inputParser.parseFromString(getExpression(), getOrderOfOperations()));
     }
 
-   public void validate(){
+   public void validate() throws Exception {
 
        ArrayList<String> expressionList = getExpressionList();
        List<String> operators = getSimpleOrderOfOperations();
@@ -60,13 +60,12 @@ public class arithmeticCalculator extends Calculator {
        setExpressionList(expressionList);
    }
 
-   public String mathSolver() {
+   public String mathSolver() throws Exception {
 
        ArrayList<String> expressionList = getExpressionList();
        int startIndex = 0;
        int endIndex = expressionList.size();
        ArrayList<String> workingList;
-
 
        for(int i = 0; i < expressionList.size(); i++) {
 
@@ -87,6 +86,7 @@ public class arithmeticCalculator extends Calculator {
 
                System.out.println("We found brackets so we will solve those first:\nThe Contents of the brackets: "+workingList);
                String response = finalMathSolver(workingList);
+               System.out.println("There is no more operations left so we are done! \nThis is the solution of the expression in the brackets: "+response);
                if (expressionList.get(startIndex).equals("-(")){
                    response = String.valueOf(Double.parseDouble(response) * -1);
                }
@@ -98,9 +98,9 @@ public class arithmeticCalculator extends Calculator {
            }
        }
 
+       System.out.println("\nWe are Done with all the brackets so we can start solving the Final Expression");
        setExpressionList(expressionList);
        String result = finalMathSolver(expressionList);
-       System.out.println("\nResulting List: "+result);
        return result;
    }
 

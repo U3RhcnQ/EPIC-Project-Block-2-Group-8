@@ -33,7 +33,20 @@ public class CalculatorInterface {
                     System.out.print("\nYou Selected the Arithmetic Calculator: "+"\nPlease type in your expression to solve: ");
                     String expression = scanner.nextLine();
                     arithmeticCalculator calculator = new arithmeticCalculator(expression);
-                    System.out.println("The solution is: "+calculator.solve());
+                    try {
+                        System.out.println("\nWe have nothing left to do !\nSo the solution is: " + calculator.solve() + "\nWasn't that easy ?");
+
+                    } catch (PrettyException e) {
+                        // Handle the PrettyException
+                        System.err.println("Caught a PrettyException: " + e.getMessage());
+                        //e.printStackTrace(); // For debugging
+
+                    } catch (Exception e) {
+                        // Catch other potential exceptions (optional)
+                        System.err.println("Caught an unexpected exception: " + e.getMessage());
+                        //e.printStackTrace();
+                    }
+
                 default:
                     System.out.print("\nSorry your input was invalid can you try again?\nSelect an option: ");
                     optionSelected = scanner.nextInt();

@@ -68,13 +68,16 @@ public class Calculator {
                         case "-" -> result = a - b;
                     }
 
+                    System.out.printf("\nAfter applying the (%s) operation on %.2f and %.2f we get the following result: %.2f",expressionList.get(i), a, b, result);
+
                     // Replace the operator and operands with the result
                     expressionList.set(i, String.valueOf(result));
                     expressionList.remove(i + 1); // Remove the operand after the operator
                     expressionList.remove(i - 1); // Remove the operand before the operator
 
                     i -= 1; // Step back to account for the removed elements and continue inline evaluation
-                    System.out.println("List: " + expressionList);
+
+                    System.out.println("\nThe remaining list of operations: " + expressionList);
                 }
             }
         }

@@ -3,12 +3,6 @@ import java.util.List;
 
 public class inputParser {
 
-    private String expression;
-
-    public inputParser(){
-
-    }
-
     public static ArrayList<String> parseFromString(String expression, List<List<String>> operatorsList) throws Exception {
 
         ArrayList<String> expressionList = new ArrayList<String>();
@@ -16,6 +10,7 @@ public class inputParser {
         boolean doubleMinusFlag = false;
         String lastCharacter = "";
         ArrayList<String> operators = new ArrayList<>();
+        ArrayList<String> initialExpressionList = expressionList;
 
         // some cleanup - set all to lowercase and remove whitespaces
         expression = expression.toLowerCase();
@@ -32,19 +27,25 @@ public class inputParser {
             String c = String.valueOf(expression.charAt(i));
 
             if (operators.contains(c) || c.equals("(") || c.equals(")")){
-                //System.out.println("Debug print 1: "+c);
+
+                // Check if the previous character was the same
                 if (lastCharacter.equals(c)){
 
+                    // Set double minus flag if only one minus beforehand
                     if (c.equals("-") && !doubleMinusFlag) {
                         doubleMinusFlag = true;
                         expressionList.add(c);
 
+                    // We have more than 2 minuses in a row now so we have to throw an error here
                     } else if (c.equals("-")){
-                        throw new Exception("U dumb fuck -");
+                        throw new PrettyException("It looks like you have too many minuses beside each other", expression, i);
 
+                    // We have brackets here so we can reset the minus flag
                     } else if (c.equals(")") || c.equals("(")){
                         doubleMinusFlag = false;
                         expressionList.add(c);
+
+                    // Throw error we hav double operator
                     } else {
                         throw new Exception("U dumb fuck");
                     }
