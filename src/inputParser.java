@@ -3,14 +3,12 @@ import java.util.List;
 
 public class inputParser {
 
-    public static ArrayList<String> parseFromString(String expression, List<List<String>> operatorsList) throws Exception {
+    public static ArrayList<String> parseFromString(String expression, List<String> operators, String specialChars) throws Exception {
 
         ArrayList<String> expressionList = new ArrayList<String>();
         int lasthit = 0;
         boolean doubleMinusFlag = false;
         String lastCharacter = "";
-        ArrayList<String> operators = new ArrayList<>();
-        ArrayList<String> initialExpressionList = expressionList;
 
         // some cleanup - set all to lowercase and remove whitespaces
         expression = expression.toLowerCase();
@@ -18,9 +16,6 @@ public class inputParser {
 
         System.out.println("\nLet's solve the following: "+expression);
 
-        for (List<String> innerOperatorsList : operatorsList) {
-            operators.addAll(innerOperatorsList);
-        }
 
         for(int i = 0; i < expression.length(); i++){
 
@@ -41,18 +36,27 @@ public class inputParser {
                         throw new PrettyException("It looks like you have too many minuses beside each other", expression, i);
 
                     // We have brackets here so we can reset the minus flag
-                    } else if (c.equals(")") || c.equals("(")){
+                    } else if (c.equals(")") || c.equals("(")) {
                         doubleMinusFlag = false;
                         expressionList.add(c);
 
-                    // Throw error we hav double operator
+                    // Throw error we have double operator
                     } else {
-                        throw new Exception("U dumb fuck");
+                        throw new PrettyException("It looks like you have identical operators "+c+" and "+c+" beside each other", expression, i);
                     }
 
                     lasthit = i+1;
 
                 } else {
+
+                    if (!c.equals("(") && !c.equals(")") && !lastCharacter.equals("-") && operators.contains(lastCharacter)) {
+                        throw new PrettyException("It looks like you have operators "+lastCharacter+" and "+c+" beside each other", expression, i);
+                    } else if (i == 0) {
+                        throw new PrettyException("It looks like you have a operator "+c+" before any number", expression, i);
+                    } else if (i+1 == expression.length()) {
+                        throw new PrettyException("It looks like you have a operator "+c+" left without any number after it", expression, i);
+                    }
+
 
                     if (lasthit != i) { expressionList.add(expression.substring(lasthit, i)); }
                     expressionList.add(c);
@@ -61,6 +65,9 @@ public class inputParser {
 
                 }
                 //System.out.println("List: " + expressionList);
+
+            } else if (!c.matches("\\d") && !specialChars.contains(c)) {
+                throw new PrettyException("It looks like you have a invalid Symbol "+c+" wich isn't a operator or a number", expression, i);
             }
             lastCharacter = c;
         }

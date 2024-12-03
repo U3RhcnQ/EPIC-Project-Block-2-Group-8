@@ -9,7 +9,7 @@ public class arithmeticCalculator extends Calculator {
     }
 
     public void parse() throws Exception {
-        setExpressionList(inputParser.parseFromString(getExpression(), getOrderOfOperations()));
+        setExpressionList(inputParser.parseFromString(getExpression(), getSimpleOrderOfOperations() , ""));
     }
 
    public void validate() throws Exception {

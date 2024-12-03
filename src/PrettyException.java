@@ -11,7 +11,7 @@ public class PrettyException extends Exception {
     private String formatErrorMessage(String message, String expression, int index) {
         StringBuilder formatted = new StringBuilder();
 
-        formatted.append("\nOh no it looks like we ran into an issue with the expression :( \n");
+        formatted.append("\n\nOh no it looks like we ran into an issue with the expression :( \n");
         formatted.append(message).append("\n\n");
         formatted.append(expression).append("\n");
 
@@ -20,12 +20,6 @@ public class PrettyException extends Exception {
             formatted.append(" ");
         }
         formatted.append("^\n");
-
-        // Add spaces before the vertical bar "|"
-        for (int i = 0; i < index; i++) {
-            formatted.append(" ");
-        }
-        formatted.append("|\n");
 
         return formatted.toString();
     }
