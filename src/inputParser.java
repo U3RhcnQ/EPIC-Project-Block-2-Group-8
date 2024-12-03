@@ -9,6 +9,7 @@ public class inputParser {
         int lasthit = 0;
         boolean doubleMinusFlag = false;
         String lastCharacter = "";
+        int openBracketCount = 0;
 
         // some cleanup - set all to lowercase and remove whitespaces
         expression = expression.toLowerCase();
@@ -22,6 +23,22 @@ public class inputParser {
             String c = String.valueOf(expression.charAt(i));
 
             if (operators.contains(c) || c.equals("(") || c.equals(")")){
+
+                // Handle Bracket Count outside other logic
+                // Has to be first as other logic depends on it
+                if (c.equals("(")) {
+                    openBracketCount++;
+                    System.out.println(i+" openBracketCount: "+openBracketCount);
+                } else if (i == 0 && c.equals(")")) {
+                    throw new PrettyException("It looks like you have an closing bracket before any number", expression, i);
+                } else if (c.equals(")")) {
+                    if (openBracketCount == 0) {
+                        throw new PrettyException("It looks like you have a closing Bracket before a opening one", expression, i);
+                    } else {
+                        openBracketCount--;
+                        System.out.println(i + " openBracketCount: " + openBracketCount);
+                    }
+                }
 
                 // Check if the previous character was the same
                 if (lastCharacter.equals(c)){
@@ -51,12 +68,9 @@ public class inputParser {
 
                     if (!c.equals("(") && !c.equals(")") && !lastCharacter.equals("-") && operators.contains(lastCharacter)) {
                         throw new PrettyException("It looks like you have operators "+lastCharacter+" and "+c+" beside each other", expression, i);
-                    } else if (i == 0) {
-                        throw new PrettyException("It looks like you have a operator "+c+" before any number", expression, i);
-                    } else if (i+1 == expression.length()) {
+                    } else if (i+1 == expression.length() && !c.equals(")")) {
                         throw new PrettyException("It looks like you have a operator "+c+" left without any number after it", expression, i);
                     }
-
 
                     if (lasthit != i) { expressionList.add(expression.substring(lasthit, i)); }
                     expressionList.add(c);
@@ -70,6 +84,10 @@ public class inputParser {
                 throw new PrettyException("It looks like you have a invalid Symbol "+c+" wich isn't a operator or a number", expression, i);
             }
             lastCharacter = c;
+        }
+
+        if (openBracketCount != 0) {
+            throw new PrettyException("It looks like you have "+openBracketCount+" open bracket(s) and no closing ones left", expression, expression.length()-1);
         }
 
         // Add remaining value to list if any left over
