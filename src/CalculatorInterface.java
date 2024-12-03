@@ -54,7 +54,7 @@ public class CalculatorInterface {
                     try {
                         System.out.println("\nWe have nothing left to do !\nSo the solution is: " + calculator.solve() + "\nWasn't that easy ?");
 
-                    } catch (PrettyException e) {
+                    } catch (PrettyException | ArithmeticException e) {
                         // Handle the PrettyException
                         System.err.println(e.getMessage());
                         // Bad fix for out of order error printing

@@ -49,7 +49,7 @@ public class Calculator {
         this.expression = expression;
     }
 
-    public String finalMathSolver(ArrayList<String> expressionList){
+    public String finalMathSolver(ArrayList<String> expressionList) throws Exception{
 
         for (List<String> innerOperatorsList : getOrderOfOperations()) {
             for (int i = 0; i < expressionList.size(); i++) {
@@ -63,7 +63,11 @@ public class Calculator {
                     switch (expressionList.get(i)) {
                         case "^" -> result = Math.pow(a, b);
                         case "*" -> result = a * b;
-                        case "/" -> result = a / b;
+                        case "/" -> {
+                            if (b == 0){
+                               throw new ArithmeticException("\n\nOh no it looks like we ran into an issue with the expression :( \nLooks like we have a Divide by 0 and we Can't Continue\n");
+                            } else {result = a / b;}
+                        }
                         case "+" -> result = a + b;
                         case "-" -> result = a - b;
                     }

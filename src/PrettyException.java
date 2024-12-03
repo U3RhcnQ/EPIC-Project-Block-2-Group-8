@@ -11,7 +11,7 @@ public class PrettyException extends Exception {
     private String formatErrorMessage(String message, String expression, int index) {
         StringBuilder formatted = new StringBuilder();
 
-        formatted.append("\n\nOh no it looks like we ran into an issue with the expression :( \n");
+        formatted.append("\nOh no it looks like we ran into an issue with the expression :( \n");
         formatted.append(message).append("\n\n");
         formatted.append(expression).append("\n");
 
