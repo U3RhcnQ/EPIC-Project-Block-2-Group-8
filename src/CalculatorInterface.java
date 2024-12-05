@@ -70,6 +70,14 @@ public class CalculatorInterface {
                     }
                     break;
 
+                case 2: //Linear Algebra Calculator
+                    scanner.nextLine();
+                    System.out.print("\nYou Selected the Linear Calculator: "+"\nPlease type in your expression to solve: ");
+                    String algebraExpression = scanner.nextLine();
+
+                    break;
+
+
                 default:
                     System.out.print("\nSorry your input was invalid can you try again?\nSelect an option: ");
                     break;
