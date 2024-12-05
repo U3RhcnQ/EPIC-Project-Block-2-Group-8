@@ -20,18 +20,15 @@ public class LinearAlgebraCalculator {
                 if (a == 0) {
                     System.out.println("No solution or infinite solutions exist.");
                 } else {
-                    System.out.println("Solution: x = " + x);
+                    System.out.println("Solution: \nx = " + x);
                 }
 
             } else if (varNum.equals("2")) {
                 // For 2 variables
-
                 /*
-                | a  b |
-                | c  d |
-
+                | a1  b1 | |x| = |d1|
+                | a2  b2 | |y|   |d2|
                  */
-
 
                 System.out.println("Enter coefficients for the first equation (ax + by = d): ");
                 System.out.print("a: ");
@@ -55,7 +52,7 @@ public class LinearAlgebraCalculator {
                 } else {
                     float x = (d1 * b2 - d2 * b1) / determinant;
                     float y = (a1 * d2 - a2 * d1) / determinant;
-                    System.out.println("Solution: \nx = " + x + "\n y = " + y);
+                    System.out.println("Solution: \nx = " + x + "\ny = " + y);
                 }
 
             } else if (varNum.equals("3")) {
@@ -91,8 +88,6 @@ public class LinearAlgebraCalculator {
                 float c3 = scanner.nextFloat();
                 System.out.print("d: ");
                 float d3 = scanner.nextFloat();
-
-
             /*
             What the matrix looks like
             |a1 b1 c1|   |d1|
@@ -104,24 +99,20 @@ public class LinearAlgebraCalculator {
             |L1  1  0|
             |L2 L3  1|
          */
-
                 // L Triangle
                 float L1 = a2 / a1;
-                float newA2 = a2 - (L1 * a1);
                 float newB2 = b2 - (L1 * b1);
                 float newC2 = c2 - (L1 * c1);
 
                 float L2 = a3 / a1;
-                float newA3 = a3 - (L2 * a1);
                 float newB3 = b3 - (L2 * b1);
                 float newC3 = c3 - (L2 * c1);
 
                 float L3 = newB3 / newB2;
-                float finalA3 = newA3 - (L3 * newA2);
-                float finalB3 = newB3 - (L3 * newB2);
                 float finalC3 = newC3 - (L3 * newC2);
 
-                // Solve for g3, g2, g1
+                //Lg=d
+                // Solve for g1, g2, g3
                 float g1 = d1;
                 float g2 = d2 - (L1 * g1);
                 float g3 = d3 - ((L2 * g1) + (L3 * g2));
