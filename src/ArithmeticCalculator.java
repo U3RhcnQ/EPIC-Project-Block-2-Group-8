@@ -43,7 +43,7 @@ public class ArithmeticCalculator extends Calculator {
                minusFlag = false;
                lastOperator = false;
 
-           }else if (operators.contains(item) || item.equals(")")){
+           }else if (operators.contains(item) || item.equals(")") || item.equals("(")){
 
                lastOperator = true;
                minusFlag = false;
