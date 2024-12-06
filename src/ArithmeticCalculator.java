@@ -36,14 +36,14 @@ public class ArithmeticCalculator extends Calculator {
                    minusFlag = true;
                }
 
-           } else if (!operators.contains(item) && !item.equals(")") && minusFlag && !item.contains("-") && lastOperator) {
+           } else if (!operators.contains(item) && !item.equals(")") && minusFlag && !item.contains("-") && ( lastOperator || i == 1)) {
 
                expressionList.set(i,"-"+expressionList.get(i));
                expressionList.remove(i - 1);
                minusFlag = false;
                lastOperator = false;
 
-           }else if (operators.contains(item) || item.equals(")") || item.equals("(")){
+           } else if (operators.contains(item) || item.equals(")") || item.equals("(")){
 
                lastOperator = true;
                minusFlag = false;
