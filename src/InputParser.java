@@ -66,7 +66,7 @@ public class InputParser {
 
                 } else {
 
-                    if (!c.equals("(") && !c.equals(")") && !lastCharacter.equals("-") && operators.contains(lastCharacter) && !(lastCharacter.equals("^") && c.equals("-")) && !(lastCharacter.equals("z") && c.equals("="))) {
+                    if (!c.equals("(") && !c.equals(")") && !lastCharacter.equals("-") && operators.contains(lastCharacter) && !((lastCharacter.equals("*") || lastCharacter.equals("^")) && c.equals("-")) && !(lastCharacter.equals("z") && c.equals("="))) {
                         throw new PrettyException("It looks like you have operators "+lastCharacter+" and "+c+" beside each other", expression, i);
                     } else if (i+1 == expression.length() && !c.equals(")")) {
                         throw new PrettyException("It looks like you have a operator "+c+" left without any number after it", expression, i);
