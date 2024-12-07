@@ -72,9 +72,9 @@ public class CalculatorInterface {
 
                 case 2: //Linear Algebra Calculator
                     scanner.nextLine();
-                    System.out.print("\nYou Selected the Linear Calculator: "+"\nPlease type in your expression to solve: ");
-                    String algebraExpression = scanner.nextLine();
-
+                    System.out.print("\nYou Selected the Simultaneous Equation Calculator: ");
+                    LinearAlgebraCalculator2 linearAlgebraCalculator2 = new LinearAlgebraCalculator2();
+                    linearAlgebraCalculator2.solve();
                     break;
 
 

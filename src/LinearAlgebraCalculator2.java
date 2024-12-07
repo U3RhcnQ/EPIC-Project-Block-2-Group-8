@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class LinearAlgebraCalculator2 {
 
+    private static Scanner scanner = new Scanner(System.in);
+
     //Coefficients for each expression
     private double a1 = 0, b1 = 0, c1 = 0, d1 = 0;
     private double a2 = 0, b2 = 0, c2 = 0, d2 = 0;
@@ -79,47 +81,27 @@ public class LinearAlgebraCalculator2 {
         }
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        // Create an instance of LinearAlgebraCalculator2
-        LinearAlgebraCalculator2 linearAlgebraCalculator2 = new LinearAlgebraCalculator2();
-
+    // Solve method
+    public void solve() {
         try {
-            //Explanation
-            System.out.println("\nExpression must be in the form of: ");
-            System.out.print("\nFor 1 variable: ax = d");
-            System.out.print("\nFor 2 variable: ax + by = d");
-            System.out.print("\nFor 3 variable: ax + by + cx = d");
+            System.out.println("\nExpression must be in the form of:");
+            System.out.println("For 1 variable: ax = d");
+            System.out.println("For 2 variables: ax + by = d");
+            System.out.println("For 3 variables: ax + by + cz = d");
 
-            System.out.print("\n\nHow many variables (1 to 3): ");
+            System.out.print("\nHow many variables (1 to 3): ");
             int k = scanner.nextInt();
             scanner.nextLine();
 
-            //Make sure it can only have up to 3 variables
             if (k < 1 || k > 3) {
                 throw new Exception("Number of variables must be between 1 and 3.");
             }
 
-            // Input and process expressions
             for (int i = 1; i <= k; i++) {
-                System.out.print("\nExpression" + i + ": ");
+                System.out.print("\nExpression " + i + ": ");
                 String expression = scanner.nextLine();
-                linearAlgebraCalculator2.parse(expression, i);
+                parse(expression, i);
             }
-
-            double a1 = linearAlgebraCalculator2.a1;
-            double b1 = linearAlgebraCalculator2.b1;
-            double c1 = linearAlgebraCalculator2.c1;
-            double d1 = linearAlgebraCalculator2.d1;
-            double a2 = linearAlgebraCalculator2.a2;
-            double b2 = linearAlgebraCalculator2.b2;
-            double c2 = linearAlgebraCalculator2.c2;
-            double d2 = linearAlgebraCalculator2.d2;
-            double a3 = linearAlgebraCalculator2.a3;
-            double b3 = linearAlgebraCalculator2.b3;
-            double c3 = linearAlgebraCalculator2.c3;
-            double d3 = linearAlgebraCalculator2.d3;
 
             if (k == 1) {
                 if (a1 == 0) {
@@ -138,7 +120,6 @@ public class LinearAlgebraCalculator2 {
                     System.out.println("Solution: \nx = " + x + "\ny = " + y);
                 }
             } else if (k == 3) {
-
                 double L1 = a2 / a1;
                 double newB2 = b2 - (L1 * b1);
                 double newC2 = c2 - (L1 * c1);
@@ -168,9 +149,18 @@ public class LinearAlgebraCalculator2 {
 
                 System.out.println("Solution: \nx = " + x + "\ny = " + y + "\nz = " + z);
             }
-
         } catch (Exception e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+
+        // Created an instance of LinearAlgebraCalculator2
+        LinearAlgebraCalculator2 linearAlgebraCalculator2 = new LinearAlgebraCalculator2();
+        linearAlgebraCalculator2.solve();
+
+
+
     }
 }
