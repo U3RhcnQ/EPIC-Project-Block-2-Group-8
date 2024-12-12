@@ -10,6 +10,8 @@ public class InputParser {
         boolean doubleMinusFlag = false;
         String lastCharacter = "";
         int openBracketCount = 0;
+        boolean hasDecimalPoint = false;
+
 
         // some cleanup - set all to lowercase and remove whitespaces
         expression = expression.toLowerCase();
@@ -26,9 +28,8 @@ public class InputParser {
 
                 // Handle Bracket Count outside other logic
                 // Has to be first as other logic depends on it
-                if (c.equals("(")) {
-                    openBracketCount++;
-                    System.out.println(i+" openBracketCount: "+openBracketCount);
+                if (c.equals("(") && lastCharacter.equals(")")) {
+                    throw new PrettyException("It looks like you have two sets of brackets with no operator between each other", expression, i);
                 } else if (i == 0 && c.equals(")")) {
                     throw new PrettyException("It looks like you have an closing bracket before any number", expression, i);
                 } else if (c.equals(")")) {
@@ -38,6 +39,9 @@ public class InputParser {
                         openBracketCount--;
                         System.out.println(i + " openBracketCount: " + openBracketCount);
                     }
+                } else if (c.equals("(")) {
+                    openBracketCount++;
+                    System.out.println(i + " openBracketCount: " + openBracketCount);
                 }
 
                 // Check if the previous character was the same
@@ -56,13 +60,13 @@ public class InputParser {
                     } else if (c.equals(")") || c.equals("(")) {
                         doubleMinusFlag = false;
                         expressionList.add(c);
-
                     // Throw error we have double operator
                     } else {
                         throw new PrettyException("It looks like you have identical operators "+c+" and "+c+" beside each other", expression, i);
                     }
 
                     lasthit = i+1;
+                    hasDecimalPoint = false;
 
                 } else {
 
@@ -76,12 +80,19 @@ public class InputParser {
                     expressionList.add(c);
                     lasthit = i+1;
                     doubleMinusFlag = false;
+                    hasDecimalPoint = false;
 
                 }
                 //System.out.println("List: " + expressionList);
 
-            } else if (!c.matches("\\d") && !specialChars.contains(c)) {
-                throw new PrettyException("It looks like you have a invalid Symbol "+c+" wich isn't a operator or a number", expression, i);
+            } else if (!c.matches("\\d") && !specialChars.contains(c) && !c.equals(".")) {
+                throw new PrettyException("It looks like you have a invalid Symbol "+c+" which isn't a operator or a number", expression, i);
+            } else if (c.equals(".") && lastCharacter.equals(".")) {
+                throw new PrettyException("It looks like you have 2 decimal points beside another", expression, i);
+            } else if (c.equals(".") && hasDecimalPoint) {
+                throw new PrettyException("It looks like you have multiple decimal points in the same number", expression, i);
+            } else if (c.equals(".")) {
+                hasDecimalPoint = true;
             }
             lastCharacter = c;
         }
