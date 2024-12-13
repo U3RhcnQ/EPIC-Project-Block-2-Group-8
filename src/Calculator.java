@@ -4,17 +4,23 @@ import java.util.List;
 
 public class Calculator {
 
+    // Instance Variables:
+
     // We initialise the order of operations to the standard operations order by default but let us change it later
     private List<List<String>> orderOfOperations = List.of(
             List.of("^"),
             List.of("*", "/"),
             List.of("+", "-")
     );
+
+    // This is a simple order of operations use only for input parser and not for accumulations
+    // When we update main order of operations we update this as well - check set method
     private List<String> orderOfOperationsSimple = List.of("^","*","/","+","-");
 
     private String expression = "";
     private ArrayList<String> expressionList = new ArrayList<String>();
 
+    // Methods:
 
     public String getExpression() {
         return expression;
@@ -33,7 +39,6 @@ public class Calculator {
     public void setExpressionList(ArrayList<String> expressionList) {this.expressionList = expressionList;}
 
     public void setOrderOfOperations(List<List<String>> newListOfOperators) {
-        this.orderOfOperations = newListOfOperators;
 
         // if we update the order of operations we need to update the simple list as well
         // We do this by building out a new list from all the inner lists
@@ -43,6 +48,7 @@ public class Calculator {
         }
 
         this.orderOfOperationsSimple = operators;
+        this.orderOfOperations = newListOfOperators;
     }
 
     public Calculator(String expression){
@@ -51,7 +57,7 @@ public class Calculator {
 
     public String finalMathSolver(ArrayList<String> expressionList) throws Exception{
 
-        for (List<String> innerOperatorsList : getOrderOfOperations()) {
+        for (List<String> innerOperatorsList : getOrderOfOperations()) { // we loop for every level of priority of operations
             for (int i = 0; i < expressionList.size(); i++) {
                 if (innerOperatorsList.contains(expressionList.get(i))) {
 
@@ -64,7 +70,7 @@ public class Calculator {
                         case "^" -> result = Math.pow(a, b);
                         case "*" -> result = a * b;
                         case "/" -> {
-                            if (b == 0){
+                            if (b == 0){ // Catch a divide by 0 error
                                throw new ArithmeticException("\n\nOh no it looks like we ran into an issue with the expression :( \nLooks like we have a Divide by 0 and we can't continue\n");
                             } else {result = a / b;}
                         }

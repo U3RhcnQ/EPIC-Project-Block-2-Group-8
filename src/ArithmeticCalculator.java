@@ -8,10 +8,12 @@ public class ArithmeticCalculator extends Calculator {
         super(expression);
     }
 
+    // Throws Exception which we handle up the stack
     public void parse() throws Exception {
         setExpressionList(InputParser.parseFromString(getExpression(), getSimpleOrderOfOperations() , ""));
     }
 
+    // Method to validate the initial parse
    public void validate() throws Exception {
 
        ArrayList<String> expressionList = getExpressionList();
@@ -23,20 +25,22 @@ public class ArithmeticCalculator extends Calculator {
 
        for (int i = 0; i < expressionList.size(); i++) {
            String item = expressionList.get(i);
+
            // Compare with null checking - Good practice
            if (Objects.equals(item, "-")) {
 
                if (minusFlag) {
                    // remove the double minus as it cancels out
                    expressionList.remove(i);
-                   i--;
+                   i--; // decrement counter by 1 as we removed a element
                    expressionList.set(i-1,"+");
                    minusFlag = false;
+
                } else {
                    minusFlag = true;
                }
 
-           } else if (!operators.contains(item) && !item.equals(")") && minusFlag && !item.contains("-") && ( lastOperator || i == 1)) {
+           } else if (!operators.contains(item) && !item.equals(")") && minusFlag && !item.equals("-") && !expressionList.get(i-2).equals(")") && ( lastOperator || i == 1)) {
 
                expressionList.set(i,"-"+expressionList.get(i));
                expressionList.remove(i - 1);
@@ -55,8 +59,9 @@ public class ArithmeticCalculator extends Calculator {
 
            }
        }
+
        System.out.println("\nWe now check the list for any double minuses and other small things\nResulting list after the check:  "+expressionList);
-       System.out.println("Let's start solving it now");
+       System.out.println("\nLet's start solving it now");
        setExpressionList(expressionList);
    }
 
@@ -100,8 +105,7 @@ public class ArithmeticCalculator extends Calculator {
 
        System.out.println("\nWe are Done with all the brackets so we can start solving the Final Expression");
        setExpressionList(expressionList);
-       String result = finalMathSolver(expressionList);
-       return result;
+       return finalMathSolver(expressionList);
    }
 
    public String solve() throws Exception{

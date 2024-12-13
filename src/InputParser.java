@@ -37,11 +37,9 @@ public class InputParser {
                         throw new PrettyException("It looks like you have a closing Bracket before a opening one", expression, i);
                     } else {
                         openBracketCount--;
-                        System.out.println(i + " openBracketCount: " + openBracketCount);
                     }
                 } else if (c.equals("(")) {
                     openBracketCount++;
-                    System.out.println(i + " openBracketCount: " + openBracketCount);
                 }
 
                 // Check if the previous character was the same
