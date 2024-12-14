@@ -1,8 +1,7 @@
 import java.util.ArrayList; // import the ArrayList class
 import java.util.List;
 
-
-public class Calculator {
+public abstract class Calculator {
 
     // Instance Variables:
 
@@ -16,29 +15,28 @@ public class Calculator {
     // This is a simple order of operations use only for input parser and not for accumulations
     // When we update main order of operations we update this as well - check set method
     private List<String> orderOfOperationsSimple = List.of("^","*","/","+","-");
-
-    private String expression = "";
-    private ArrayList<String> expressionList = new ArrayList<String>();
+    private final String expression;
+    private ArrayList<String> expressionList = new ArrayList<>();
 
     // Methods:
 
-    public String getExpression() {
+    protected String getExpression() {
         return expression;
     }
 
-    public List<List<String>> getOrderOfOperations() {
+    protected List<List<String>> getOrderOfOperations() {
         return this.orderOfOperations;
     }
 
-    public List<String> getSimpleOrderOfOperations() {
+    protected List<String> getSimpleOrderOfOperations() {
         return this.orderOfOperationsSimple;
     }
 
-    public ArrayList<String> getExpressionList() {return this.expressionList;}
+    protected ArrayList<String> getExpressionList() {return this.expressionList;}
 
-    public void setExpressionList(ArrayList<String> expressionList) {this.expressionList = expressionList;}
+    protected void setExpressionList(ArrayList<String> expressionList) {this.expressionList = expressionList;}
 
-    public void setOrderOfOperations(List<List<String>> newListOfOperators) {
+    protected void setOrderOfOperations(List<List<String>> newListOfOperators) {
 
         // if we update the order of operations we need to update the simple list as well
         // We do this by building out a new list from all the inner lists
@@ -51,16 +49,21 @@ public class Calculator {
         this.orderOfOperations = newListOfOperators;
     }
 
-    public Calculator(String expression){
+    protected Calculator(String expression){
         this.expression = expression;
     }
 
-    public String finalMathSolver(ArrayList<String> expressionList) throws Exception{
+    // Main Maths Solver for the calculator
+    protected String finalMathSolver(ArrayList<String> expressionList){
 
-        for (List<String> innerOperatorsList : getOrderOfOperations()) { // we loop for every level of priority of operations
+        // we loop for every level of priority of operations so ^, */ and then +-
+        for (List<String> innerOperatorsList : getOrderOfOperations()) {
+            // loop through the expression list
             for (int i = 0; i < expressionList.size(); i++) {
+                // Check if the item is an operator
                 if (innerOperatorsList.contains(expressionList.get(i))) {
 
+                    // Get number to the left and right of the operator
                     double a = Double.parseDouble(expressionList.get(i - 1));
                     double b = Double.parseDouble(expressionList.get(i + 1));
                     double result = 0;
@@ -70,9 +73,12 @@ public class Calculator {
                         case "^" -> result = Math.pow(a, b);
                         case "*" -> result = a * b;
                         case "/" -> {
-                            if (b == 0){ // Catch a divide by 0 error
+                            // Catch divide by 0 errors here
+                            if (b == 0){
                                throw new ArithmeticException("\n\nOh no it looks like we ran into an issue with the expression :( \nLooks like we have a Divide by 0 and we can't continue\n");
-                            } else {result = a / b;}
+                            } else {
+                                result = a / b;
+                            }
                         }
                         case "+" -> result = a + b;
                         case "-" -> result = a - b;
@@ -87,7 +93,7 @@ public class Calculator {
 
                     i -= 1; // Step back to account for the removed elements and continue inline evaluation
 
-                    System.out.println("\nThe remaining list of operations: " + expressionList);
+                    System.out.printf("\nThe remaining list of operations: %s%n", expressionList);
                 }
             }
         }

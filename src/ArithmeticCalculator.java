@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ArithmeticCalculator extends Calculator {
 
@@ -9,40 +8,52 @@ public class ArithmeticCalculator extends Calculator {
     }
 
     // Throws Exception which we handle up the stack
-    public void parse() throws Exception {
+    private void parse() throws Exception {
+
+        // Send the raw input to the parser with order of operations and no special chars
         setExpressionList(InputParser.parseFromString(getExpression(), getSimpleOrderOfOperations() , ""));
+
     }
 
     // Method to validate the initial parse
-   public void validate() throws Exception {
+   private void validate() throws Exception {
 
        ArrayList<String> expressionList = getExpressionList();
        List<String> operators = getSimpleOrderOfOperations();
 
        // Do a pass of the resulting list as there can be - - beside each other.
+       // Flags for minus and Operators we use those to handle cases
        boolean minusFlag = false;
        boolean lastOperator = false;
 
+       // Go through the whole expression list
        for (int i = 0; i < expressionList.size(); i++) {
+           // Get Item to check
            String item = expressionList.get(i);
 
-           // Compare with null checking - Good practice
-           if (Objects.equals(item, "-")) {
+           // Check if Item is a minus
+           if (item.equals("-")) {
 
                if (minusFlag) {
-                   // remove the double minus as it cancels out
+                   // remove the first minus in the double minus as it cancels out
                    expressionList.remove(i);
-                   i--; // decrement counter by 1 as we removed a element
+                   // Set the first minus to be a +
                    expressionList.set(i-1,"+");
                    minusFlag = false;
+                   i--; // decrement counter by 1 as we removed an element
 
                } else {
                    minusFlag = true;
                }
 
-           } else if (!operators.contains(item) && !item.equals(")") && minusFlag && !item.equals("-") && !expressionList.get(i-2).equals(")") && ( lastOperator || i == 1)) {
+           // Here we check for any single numbers with a minus in front, and we convert it into a negative number where needed
+           // eg: +,-,2 equals: +,-2
 
+           } else if (!operators.contains(item) && !item.equals(")") && minusFlag && !expressionList.get(i-2).equals(")") && ( lastOperator || i == 1)) {
+
+               // Set the number to be itself + (-)
                expressionList.set(i,"-"+expressionList.get(i));
+               // Remove the previous (-) as we added it to the number
                expressionList.remove(i - 1);
                minusFlag = false;
                lastOperator = false;
@@ -60,15 +71,15 @@ public class ArithmeticCalculator extends Calculator {
            }
        }
 
-       System.out.println("\nWe now check the list for any double minuses and other small things\nResulting list after the check:  "+expressionList);
+       System.out.printf("%nWe now check the list for any double minuses and other small things %nResulting list after the check:  %s%n", expressionList);
        System.out.println("\nLet's start solving it now");
        setExpressionList(expressionList);
    }
 
-   public String mathSolver() throws Exception {
+   private String mathSolver() throws Exception {
 
        ArrayList<String> expressionList = getExpressionList();
-       int startIndex = 0;
+       int startIndex;
        int endIndex = expressionList.size();
        ArrayList<String> workingList;
 
@@ -86,12 +97,12 @@ public class ArithmeticCalculator extends Calculator {
                }
 
                //System.out.println("i:"+i+"start:"+startIndex+"endIndex:"+endIndex);
-               System.out.println("\nCurrent list: "+expressionList);
+               System.out.printf("%nCurrent list: %s%n", expressionList);
                workingList = new ArrayList<>(expressionList.subList(startIndex+1, endIndex));
 
-               System.out.println("We found brackets so we will solve those first:\nThe Contents of the brackets: "+workingList);
+               System.out.printf("We found brackets so we will solve those first: %nThe Contents of the brackets: %s%n", workingList);
                String response = finalMathSolver(workingList);
-               System.out.println("There is no more operations left so we are done! \nThis is the solution of the expression in the brackets: "+response);
+               System.out.printf("There is no more operations left so we are done! %nThis is the solution of the expression in the brackets: %s%n", response);
                if (expressionList.get(startIndex).equals("-(")){
                    response = String.valueOf(Double.parseDouble(response) * -1);
                }
@@ -109,10 +120,13 @@ public class ArithmeticCalculator extends Calculator {
    }
 
    public String solve() throws Exception{
+
+       // This is the full solver that we can call externally
+       // First we parse the input
        parse();
+       // Then we validate the input
        validate();
+       // Finally we solve the expression and return
        return(mathSolver());
    }
-
-
 }
