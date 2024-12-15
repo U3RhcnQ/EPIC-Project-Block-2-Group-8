@@ -110,8 +110,8 @@ public class InputParser {
                 hasDecimalPoint = true;
 
             }
-
             lastCharacter = c;
+
         }
 
         if (openBracketCount != 0) {
