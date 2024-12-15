@@ -5,11 +5,13 @@ public class InputParser {
 
     public static ArrayList<String> parseFromString(String expression, List<String> operators, String specialChars) throws Exception {
 
-        ArrayList<String> expressionList = new ArrayList<String>();
-        int lasthit = 0;
-        boolean doubleMinusFlag = false;
+        // Initialise variables
+        ArrayList<String> expressionList = new ArrayList<>();
+        int lastHit = 0;
         String lastCharacter = "";
         int openBracketCount = 0;
+        // Booleans for logic and error handling
+        boolean doubleMinusFlag = false;
         boolean hasDecimalPoint = false;
 
 
@@ -17,7 +19,7 @@ public class InputParser {
         expression = expression.toLowerCase();
         expression = expression.replaceAll("\\s+","");
 
-        System.out.println("\nLet's solve the following: "+expression);
+        System.out.printf("%nLet's solve the following: %s%n", expression);
 
 
         for(int i = 0; i < expression.length(); i++){
@@ -30,14 +32,18 @@ public class InputParser {
                 // Has to be first as other logic depends on it
                 if (c.equals("(") && lastCharacter.equals(")")) {
                     throw new PrettyException("It looks like you have two sets of brackets with no operator between each other", expression, i);
+
                 } else if (i == 0 && c.equals(")")) {
                     throw new PrettyException("It looks like you have an closing bracket before any number", expression, i);
+
                 } else if (c.equals(")")) {
+
                     if (openBracketCount == 0) {
                         throw new PrettyException("It looks like you have a closing Bracket before a opening one", expression, i);
                     } else {
                         openBracketCount--;
                     }
+
                 } else if (c.equals("(")) {
                     openBracketCount++;
                 }
@@ -58,53 +64,67 @@ public class InputParser {
                     } else if (c.equals(")") || c.equals("(")) {
                         doubleMinusFlag = false;
                         expressionList.add(c);
+
                     // Throw error we have double operator
                     } else {
                         throw new PrettyException("It looks like you have identical operators "+c+" and "+c+" beside each other", expression, i);
+
                     }
 
-                    lasthit = i+1;
-                    hasDecimalPoint = false;
+                    lastHit = i+1;
 
                 } else {
 
                     if (!c.equals("(") && !c.equals(")") && !lastCharacter.equals("-") && operators.contains(lastCharacter) && !((lastCharacter.equals("*") || lastCharacter.equals("^")) && c.equals("-")) && !( (lastCharacter.equals("z") || lastCharacter.equals("x") || lastCharacter.equals("y")) && c.equals("="))) {
                         throw new PrettyException("It looks like you have operators "+lastCharacter+" and "+c+" beside each other", expression, i);
+
                     } else if (i+1 == expression.length() && !c.equals(")")) {
                         throw new PrettyException("It looks like you have a operator "+c+" left without any number after it", expression, i);
+
                     }
 
-                    if (lasthit != i) { expressionList.add(expression.substring(lasthit, i)); }
+                    if (lastHit != i) {
+                        expressionList.add(expression.substring(lastHit, i));
+
+                    }
+
                     expressionList.add(c);
-                    lasthit = i+1;
+                    lastHit = i+1;
                     doubleMinusFlag = false;
-                    hasDecimalPoint = false;
 
                 }
-                //System.out.println("List: " + expressionList);
+
+                hasDecimalPoint = false;
+
 
             } else if (!c.matches("\\d") && !specialChars.contains(c) && !c.equals(".")) {
                 throw new PrettyException("It looks like you have a invalid Symbol "+c+" which isn't a operator or a number", expression, i);
+
             } else if (c.equals(".") && lastCharacter.equals(".")) {
                 throw new PrettyException("It looks like you have 2 decimal points beside another", expression, i);
+
             } else if (c.equals(".") && hasDecimalPoint) {
                 throw new PrettyException("It looks like you have multiple decimal points in the same number", expression, i);
+
             } else if (c.equals(".")) {
                 hasDecimalPoint = true;
+
             }
+
             lastCharacter = c;
         }
 
         if (openBracketCount != 0) {
             throw new PrettyException("It looks like you have "+openBracketCount+" open bracket(s) and no closing ones left", expression, expression.length()-1);
+
         }
 
         // Add remaining value to list if any left over
-        if (lasthit < expression.length()) {
-            expressionList.add(expression.substring(lasthit));
+        if (lastHit < expression.length()) {
+            expressionList.add(expression.substring(lastHit));
         }
 
-        System.out.println("\nWe converted the expression to the following list that we will now work with\nThis is what we have now: "+expressionList);
+        System.out.printf("%nWe converted the expression to the following list that we will now work with %nThis is what we have now: %s%n", expressionList);
         return expressionList;
     }
 

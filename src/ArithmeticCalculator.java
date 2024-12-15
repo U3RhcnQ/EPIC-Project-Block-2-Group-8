@@ -78,43 +78,70 @@ public class ArithmeticCalculator extends Calculator {
 
    private String mathSolver() throws Exception {
 
+       // Initialise variables
        ArrayList<String> expressionList = getExpressionList();
        int startIndex;
        int endIndex = expressionList.size();
        ArrayList<String> workingList;
 
+       // Iterate over the expressionList
        for(int i = 0; i < expressionList.size(); i++) {
 
+           // We will handle brackets here
+           // If we encounter an open bracket we will step into the expression list until we encounter a Closing bracket,
+           // or we encounter another open bracket in which case we update the starting index and repeat until all open brackets have a closed bracket.
+           // Starting to the end point will be passed to the maths solver (Solving the contents of the bracket) and will push the result back into the list
+           // We will always solve the inner brackets first
+
+           // Look for open brackets
            if (expressionList.get(i).equals("(") || expressionList.get(i).equals("-(")){
+               // Set initial Starting point
                startIndex = i;
+
+               // Now we look for a closing bracket or ar another opening one
                for(int j = i; j < expressionList.size(); j++) {
                    if (expressionList.get(j).equals(")")){
+
+                       // We found a closing bracket so we can now end the iteration here for this set of brackets.
                        endIndex = j;
                        break;
+
                    } else if (expressionList.get(j).equals("(") || expressionList.get(j).equals("-(")) {
+
+                       // We found another open bracket so we will use it first always solving the inner set of brackets first
                        startIndex = j;
                    }
                }
 
-               //System.out.println("i:"+i+"start:"+startIndex+"endIndex:"+endIndex);
                System.out.printf("%nCurrent list: %s%n", expressionList);
+               // Temporary store for contents of brackets without "(" or ")"
                workingList = new ArrayList<>(expressionList.subList(startIndex+1, endIndex));
 
+               // Solve the maths expression inside
                System.out.printf("We found brackets so we will solve those first: %nThe Contents of the brackets: %s%n", workingList);
                String response = finalMathSolver(workingList);
+
                System.out.printf("There is no more operations left so we are done! %nThis is the solution of the expression in the brackets: %s%n", response);
+
+               // we handle a "-(" here basically assume it's multiplied by -1
                if (expressionList.get(startIndex).equals("-(")){
                    response = String.valueOf(Double.parseDouble(response) * -1);
                }
+
+               // We add the result after the closing bracket
                expressionList.add(endIndex+1, response);
+               // We delete the brackets that we just solved
                expressionList.subList(startIndex, endIndex+1).clear();
+               // Update the Global expressionList
                setExpressionList(expressionList);
 
-               i = 0;
+               // Move back iterator by 1 to account for removed bracket
+               i--;
            }
        }
 
        System.out.println("\nWe are Done with all the brackets so we can start solving the Final Expression");
+       // Update the Global expressionList
        setExpressionList(expressionList);
        return finalMathSolver(expressionList);
    }
