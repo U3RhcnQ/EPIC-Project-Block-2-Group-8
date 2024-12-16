@@ -147,6 +147,7 @@ public class ArithmeticCalculator extends Calculator {
        return finalMathSolver(expressionList);
    }
 
+   @Override
    public String solve() throws Exception{
 
        // This is the full solver that we can call externally
