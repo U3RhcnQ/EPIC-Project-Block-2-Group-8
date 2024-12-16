@@ -8,7 +8,7 @@ public class ArithmeticCalculator extends Calculator {
     }
 
     // Throws Exception which we handle up the stack
-    private void parse() throws Exception {
+    void parse() throws Exception {
 
         // Send the raw input to the parser with order of operations and no special chars
         setExpressionList(InputParser.parseFromString(getExpression(), getSimpleOrderOfOperations() , ""));
