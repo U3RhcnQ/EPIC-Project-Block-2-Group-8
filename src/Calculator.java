@@ -15,7 +15,7 @@ public abstract class Calculator {
     // This is a simple order of operations use only for input parser and not for accumulations
     // When we update main order of operations we update this as well - check set method
     private List<String> orderOfOperationsSimple = List.of("^","*","/","+","-");
-    private final String expression;
+    private String expression;
     private ArrayList<String> expressionList = new ArrayList<>();
 
     // Methods:
@@ -30,6 +30,10 @@ public abstract class Calculator {
 
     protected List<String> getSimpleOrderOfOperations() {
         return this.orderOfOperationsSimple;
+    }
+
+    protected void setExpression(String expression){
+        this.expression =  expression;
     }
 
     protected ArrayList<String> getExpressionList() {return this.expressionList;}
