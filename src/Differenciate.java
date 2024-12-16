@@ -3,11 +3,49 @@ import java.util.List;
 
 public class Differenciate {
     static String equation = "2x^2+6x-1";
+    public String new_equation = "2x^26+6x-1";
+    List<String> orderOfOperations = List.of("*","/","+","-");
 
+    public ArrayList<String> parse(String input) throws Exception {
+
+        //input = input.replace("+", ""); //Gets rid of +'s
+
+        //Parses input and checks for the special characters
+        ArrayList<String> expression = InputParser.parseFromString(input, orderOfOperations, "x+-*/^=");
+
+        return expression;
+    }
+
+    public void solve() throws Exception {
+        ArrayList<String> elementList = parse(new_equation);
+        ArrayList<String> workingList = new ArrayList<>();
+
+        System.out.println(elementList);
+        equation = "";
+        for (int index = 0; index<elementList.size(); index++){
+            String item = elementList.get(index);
+            if (orderOfOperations.contains(item)) {
+                equation = equation + item;
+            } else {
+                equation = equation + differenciate(item);
+                workingList.add(differenciate(item));
+            }
+        }
+
+
+        System.out.println(equation);
+    }
 
     public static void main(String[] args) throws Exception {
-        //List<String> operations = List.of("^","*","/","+","-");
-        //System.out.println(InputParser.parseFromString(equation,operations,""));
+
+
+        Differenciate test = new Differenciate();
+        test.solve();
+
+        /*
+        List<String> operations = List.of("^","*","/","+","-");
+        System.out.println(InputParser.parseFromString(equation,operations,""));
+
         ArrayList<String> elementList = new ArrayList<String>();
 
         while (equation.contains("x")) {
@@ -22,11 +60,16 @@ public class Differenciate {
             }
         }
 
+
+
+        ArrayList<String> elementList = parse(equation);
+
         equation = "";
         System.out.println(elementList);
         for (int index = 0; index<elementList.size(); index++){
             equation = equation + differenciate(elementList.get(index));
         }
+        */
 
         System.out.println(equation);
 
