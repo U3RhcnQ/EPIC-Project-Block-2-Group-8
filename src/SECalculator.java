@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 // Simultaneous Equation Calculator
-public class SECalculator {
+public class SECalculator extends Calculator{
 
     private static Scanner scanner = new Scanner(System.in);
 
@@ -11,6 +11,10 @@ public class SECalculator {
     private double a1 = 0, b1 = 0, c1 = 0, d1 = 0;
     private double a2 = 0, b2 = 0, c2 = 0, d2 = 0;
     private double a3 = 0, b3 = 0, c3 = 0, d3 = 0;
+
+    public SECalculator() {
+        super("");
+    }
 
     public void parse(String input, int expressionNumber) throws Exception {
         List<String> orderOfOperations = List.of("x", "y", "z", "=");
@@ -79,6 +83,7 @@ public class SECalculator {
             for (int i = 1; i <= k; i++) {
                 System.out.print("\nExpression " + i + ": ");
                 String expression = scanner.nextLine();
+                setExpression(expression);
                 parse(expression, i);
             }
 
