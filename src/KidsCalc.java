@@ -107,46 +107,60 @@ public class KidsCalc {
                 int divresult = div1 / div2;
 
                 int x =1;
-                while(x <= (divresult -1)) {
-                    for (int i = 1; i <= div2; i++) {
-                        System.out.print("+-----+ ");}
-                    System.out.println();
-                    for (int i = 1; i <= div2; i++) {
-                        System.out.print("|  " + i + "  | ");}
-                    System.out.println();
-                    for (int i = 1; i <= div2; i++) {
-                        System.out.print("+-----+ ");}
-                    System.out.println();
-                    x++;
+                while(x < (divresult)) {
+
+
+                    System.out.print("+-----+  ");
+                    System.out.print("                                        ");
+                    for (int i = 0; i < div2; i++) {
+                        System.out.print("        ");
+                    }
+                    System.out.println("+-----+ ");
+                    System.out.print("|  "+x+"  | ");
+                    System.out.print("                                         ");
+                    for (int i = 0; i < div2; i++) {
+                        System.out.print("        ");
+                    }
+                    System.out.println("|  "+x+"  | ");
+                    System.out.print("+-----+  ");
+                    System.out.print("                                        ");
+                    for (int i = 0; i < div2; i++) {
+                        System.out.print("        ");
+                    }
+                    System.out.println("+-----+");
+
+
+
+
+                        x++;
                 }
+                System.out.print("+-----+ ");
+                System.out.print("                      ");
+
+
                 for (int i = 1; i <= div2; i++) {
                     System.out.print("+-----+ ");}
-                System.out.print("                      ");
-                for( int i = 1; i <= div2; i++){
-                    System.out.print("+-----+ ");}
-                System.out.print("                ");
-                for( int i = 1; i <= divresult; i++){
-                    System.out.print("+-----+ ");}
-                System.out.println();
+                System.out.print("                   ");
+                    System.out.println("+-----+ ");
 
-                for(int i =1;i <= div2; i++){
-                    System.out.print("|  "+i+"  | ");}
+                    System.out.print("|  "+divresult+"  | ");
                 System.out.print("      DIVIDED BY      ");
-                for( int i = 1; i <= div2; i++){
+
+                for(int i =1; i <= div2; i++){
                     System.out.print("|  "+i+"  | ");}
-                System.out.print("     EQUALS     ");
-                for( int i = 1; i <= divresult; i++){
-                    System.out.print("|  "+i+"  | ");}
+                System.out.print("     EQUALS        ");
+
+                    System.out.print("|  "+divresult+"  | ");
                 System.out.println();
 
-                for(int i =1;i <= div2; i++){
-                    System.out.print("+-----+ ");}
+                System.out.print("+-----+ ");
                 System.out.print("                      ");
-                for( int i = 1; i <= div2; i++){
+
+
+                for (int i = 1; i <= div2; i++) {
                     System.out.print("+-----+ ");}
-                System.out.print("                ");
-                for( int i = 1; i <= divresult; i++){
-                    System.out.print("+-----+ ");}
+                System.out.print("                   ");
+                System.out.println("+-----+ ");
 
                 System.out.println("\n\n As we can see,if person 1 shares "+ div1 + " apples with " + div2 + " people,then everyone gets " + divresult + " apples");
                 System.out.print("In maths words: " + div1 + " divided by "+ div2 + " equals " + divresult);
