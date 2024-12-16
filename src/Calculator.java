@@ -53,6 +53,10 @@ public abstract class Calculator {
         this.expression = expression;
     }
 
+    abstract String solve() throws Exception;
+
+    abstract void parse() throws Exception;
+
     // Main Maths Solver for the calculator
     protected String finalMathSolver(ArrayList<String> expressionList){
 
