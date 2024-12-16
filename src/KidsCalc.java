@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 public class KidsCalc {
+
+    private int choice;
+
     public static void main(String[] args){
         //prompt
         System.out.print("Welcome to Kids Calculator!\n\nEnter '1' to learn addition!");
