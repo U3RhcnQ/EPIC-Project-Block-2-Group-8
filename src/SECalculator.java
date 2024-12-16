@@ -5,20 +5,31 @@ import java.util.Scanner;
 // Simultaneous Equation Calculator
 public class SECalculator extends Calculator{
 
-    private static Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     //Coefficients for each expression
     private double a1 = 0, b1 = 0, c1 = 0, d1 = 0;
     private double a2 = 0, b2 = 0, c2 = 0, d2 = 0;
     private double a3 = 0, b3 = 0, c3 = 0, d3 = 0;
 
+    private int expressionNumber;
+
     public SECalculator() {
         super("");
     }
 
-    public void parse(String input, int expressionNumber) throws Exception {
+    private void setExpressionNumber(int expressionNumber){
+        this.expressionNumber = expressionNumber;
+    }
+
+    private int getExpressionNumber(){ return this.expressionNumber; }
+
+    @Override
+    public void parse() throws Exception {
+
+        String input = getExpression();
         List<String> orderOfOperations = List.of("x", "y", "z", "=");
-        input = input.replace("+", ""); //Gets rid of +'s
+        //input = input.replace("+", ""); //Gets rid of +'s
 
         //Parses input and checks for the special characters
         ArrayList<String> expression = InputParser.parseFromString(input, orderOfOperations, "xyz=+-*/^=");
@@ -26,23 +37,55 @@ public class SECalculator extends Calculator{
 
         try {
             for (int i = 0; i < expression.size(); i++) {
-                String item = expression.get(i);
+                String item = expression.get(i); //gets the current element in the list
                 if (item.equals("x")) {
-                    a = Double.parseDouble(expression.get(i - 1));
+                    String coefficient = (i > 0) ? expression.get(i - 1) : "";
+
+                    if (coefficient.isEmpty()) {
+                        a = 1;
+                    } else if(coefficient.equals("-")) {
+                        a = -1;
+                    }else {
+                        try {
+                            a = Double.parseDouble(coefficient);
+                        } catch (NumberFormatException e) {
+                            throw new Exception("Invalid coefficient for x.");
+                        }
+                    }
                 } else if (item.equals("y")) {
-                    b = Double.parseDouble(expression.get(i - 1));
+                    String coefficient = (i > 0) ? expression.get(i - 1) : "";
+
+                    if (coefficient.isEmpty()) {
+                        b = 1;
+                    } else {
+                        try {
+                            b = Double.parseDouble(coefficient);
+                        } catch (NumberFormatException e) {
+                            throw new Exception("Invalid coefficient for y.");
+                        }
+                    }
                 } else if (item.equals("z")) {
-                    c = Double.parseDouble(expression.get(i - 1));
+                    String coefficient = (i > 0) ? expression.get(i - 1) : "";
+
+                    if (coefficient.isEmpty()) {
+                        c = 1;
+                    } else {
+                        try {
+                            c = Double.parseDouble(coefficient);
+                        } catch (NumberFormatException e) {
+                            throw new Exception("Invalid coefficient for z.");
+                        }
+                    }
                 } else if (item.equals("=")) {
                     d = Double.parseDouble(expression.get(i + 1));
                 }
             }
-        } catch (NumberFormatException e) {
-            throw new Exception("Invalid numeric value detected in the input.");
+        } catch (Exception e) {
+            throw new Exception("Invalid number input.");
         }
 
         //Assigning the coefficient to the variable
-        switch (expressionNumber) {
+        switch (getExpressionNumber()) {
             case 1: // 1 Variables
                 a1 = a;
                 b1 = b;
@@ -65,86 +108,100 @@ public class SECalculator extends Calculator{
     }
 
     // Solve method
-    public void solve() {
+    @Override
+    String solve() throws Exception{
+
+        int k = 0;
+        String response = "";
+
+        System.out.println("\nExpression must be in the form of:");
+        System.out.println("For 1 variable: ax = d");
+        System.out.println("For 2 variables: ax + by = d");
+        System.out.println("For 3 variables: ax + by + cz = d");
+
+        System.out.print("\nHow many variables 1,2 or 3: ");
+
         try {
-            System.out.println("\nExpression must be in the form of:");
-            System.out.println("For 1 variable: ax = d");
-            System.out.println("For 2 variables: ax + by = d");
-            System.out.println("For 3 variables: ax + by + cz = d");
-
-            System.out.print("\nHow many variables (1 to 3): ");
-            int k = scanner.nextInt();
-            scanner.nextLine();
-
-            if (k < 1 || k > 3) {
-                throw new Exception("Number of variables must be between 1 and 3.");
-            }
-
-            for (int i = 1; i <= k; i++) {
-                System.out.print("\nExpression " + i + ": ");
-                String expression = scanner.nextLine();
-                setExpression(expression);
-                parse(expression, i);
-            }
-
-            if (k == 1) {
-                if (a1 == 0) {
-                    System.out.println("No solution or infinite solutions exist.");
-                } else {
-                    double x = d1 / a1;
-                    System.out.println("Solution: \nx = " + x);
-                }
-            } else if (k == 2) {
-                double determinant = (a1 * b2) - (a2 * b1);
-                if (determinant == 0) {
-                    System.out.println("No unique solution exists (either no solution or infinitely many solutions).");
-                } else {
-                    double x = (d1 * b2 - d2 * b1) / determinant;
-                    double y = (a1 * d2 - a2 * d1) / determinant;
-                    System.out.println("Solution: \nx = " + x + "\ny = " + y);
-                }
-            } else if (k == 3) {
-                double L1 = a2 / a1;
-                double newB2 = b2 - (L1 * b1);
-                double newC2 = c2 - (L1 * c1);
-
-                double L2 = a3 / a1;
-                double newB3 = b3 - (L2 * b1);
-                double newC3 = c3 - (L2 * c1);
-
-                if (Math.abs(newB2) < 1e-9) {
-                    throw new Exception("Division by zero encountered during Gaussian elimination.");
-                }
-
-                double L3 = newB3 / newB2;
-                double finalC3 = newC3 - (L3 * newC2);
-
-                if (Math.abs(finalC3) < 1e-9) {
-                    throw new Exception("System cannot be solved: determinant is zero.");
-                }
-
-                double g1 = d1;
-                double g2 = d2 - (L1 * g1);
-                double g3 = d3 - ((L2 * g1) + (L3 * g2));
-
-                double z = g3 / finalC3;
-                double y = (g2 - (newC2 * z)) / newB2;
-                double x = (g1 - ((c1 * z) + (b1 * y))) / a1;
-
-                System.out.println("Solution: \nx = " + x + "\ny = " + y + "\nz = " + z);
-            }
+            k = scanner.nextInt();
+            setExpressionNumber(k);
         } catch (Exception e) {
-            System.err.println("An error occurred: " + e.getMessage());
+            throw new Exception("Invalid input must be a number please try again");
         }
+        scanner.nextLine();
+
+        if (k < 1 || k > 3) {
+            throw new Exception("Number of variables must be between 1 and 3.");
+        }
+
+        for (int i = 1; i <= k; i++) {
+            System.out.print("\nExpression " + i + ": ");
+            String expression = scanner.nextLine();
+            setExpression(expression);
+            setExpressionNumber(i);
+            parse();
+        }
+
+        if (k == 1) {
+            if (a1 < 1e-9) {
+                System.out.println("No solution or infinite solutions exist.");
+            } else {
+                double x = d1 / a1;
+                response = "Solution: \nx = " + x;
+            }
+        } else if (k == 2) {
+            System.out.printf("a1:%f a2:%f a3:%f b1:%f b2:%f b3:%f %n", a1, a2, a3, b1, b2 ,b3);
+            double determinant = Math.abs((a1 * b2) - (a2 * b1));
+            System.out.println(determinant);
+
+            if (determinant < 1e-9) {
+                throw new Exception("No unique solution exists (either no solution or infinitely many solutions).");
+            } else {
+                double x = (d1 * b2 - d2 * b1) / determinant;
+                double y = (a1 * d2 - a2 * d1) / determinant;
+                response = "Solution: \nx = " + x + "\ny = " + y;
+            }
+        } else if (k == 3) {
+            double L1 = a2 / a1;
+            double newB2 = b2 - (L1 * b1);
+            double newC2 = c2 - (L1 * c1);
+
+            double L2 = a3 / a1;
+            double newB3 = b3 - (L2 * b1);
+            double newC3 = c3 - (L2 * c1);
+
+            if (Math.abs(newB2) < 1e-9) {
+                throw new Exception("Division by zero encountered during Gaussian elimination.");
+            }
+
+            double L3 = newB3 / newB2;
+            double finalC3 = newC3 - (L3 * newC2);
+
+            if (Math.abs(finalC3) < 1e-9) {
+                throw new Exception("System cannot be solved: determinant is zero.");
+            }
+
+            double g1 = d1;
+            double g2 = d2 - (L1 * g1);
+            double g3 = d3 - ((L2 * g1) + (L3 * g2));
+
+            double z = g3 / finalC3;
+            double y = (g2 - (newC2 * z)) / newB2;
+            double x = (g1 - ((c1 * z) + (b1 * y))) / a1;
+
+            response = "Solution: \nx = " + x + "\ny = " + y + "\nz = " + z;
+
+        } else {
+            throw new Exception("oops something has gone horribly wrong :(");
+        }
+
+        return response;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
 
         // Created an instance of SECalculator
         SECalculator SECalculator = new SECalculator();
-        SECalculator.solve();
-
-
+        System.out.println(SECalculator.solve());
 
     }
 }

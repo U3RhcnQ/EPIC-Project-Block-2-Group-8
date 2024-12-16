@@ -77,8 +77,18 @@ public class CalculatorInterface {
                 case 2: //Linear Algebra Calculator
 
                     System.out.printf("%nYou Selected the Simultaneous Equation Calculator: %n");
-                    SECalculator SECalculator = new SECalculator();
-                    SECalculator.solve();
+
+                    try {
+                        SECalculator SECalculator = new SECalculator();
+                        System.out.println(SECalculator.solve());
+
+                    } catch (Exception e) {
+                        // Catch other potential exceptions
+                        System.err.printf("%nOh no we ran into the following error: %s%n%n", e.getMessage());
+                        //e.printStackTrace();
+                        // Bad fix for out of order error printing
+                        Thread.sleep(25); // Delay for 25 milliseconds
+                    }
                     break;
 
                 default:

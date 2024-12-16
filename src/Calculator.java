@@ -53,6 +53,7 @@ public abstract class Calculator {
         this.orderOfOperations = newListOfOperators;
     }
 
+
     protected Calculator(String expression){
         this.expression = expression;
     }
