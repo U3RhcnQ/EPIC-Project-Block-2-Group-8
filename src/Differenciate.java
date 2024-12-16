@@ -1,10 +1,13 @@
 import java.util.ArrayList;
+import java.util.List;
 
-public class Integration {
+public class Differenciate {
     static String equation = "2x^2+6x-1";
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        //List<String> operations = List.of("^","*","/","+","-");
+        //System.out.println(InputParser.parseFromString(equation,operations,""));
         ArrayList<String> elementList = new ArrayList<String>();
 
         while (equation.contains("x")) {
@@ -20,11 +23,13 @@ public class Integration {
         }
 
         equation = "";
+        System.out.println(elementList);
         for (int index = 0; index<elementList.size(); index++){
             equation = equation + differenciate(elementList.get(index));
         }
 
         System.out.println(equation);
+
     }
 
     private static String differenciate(String expression){
@@ -44,4 +49,5 @@ public class Integration {
         }
         return expression;
     }
+
 }
