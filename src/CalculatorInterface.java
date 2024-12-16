@@ -77,8 +77,8 @@ public class CalculatorInterface {
                 case 2: //Linear Algebra Calculator
 
                     System.out.printf("%nYou Selected the Simultaneous Equation Calculator: %n");
-                    LinearAlgebraCalculator2 linearAlgebraCalculator2 = new LinearAlgebraCalculator2();
-                    linearAlgebraCalculator2.solve();
+                    SECalculator SECalculator = new SECalculator();
+                    SECalculator.solve();
                     break;
 
                 default:
