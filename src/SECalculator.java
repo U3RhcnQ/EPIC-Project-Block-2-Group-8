@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class LinearAlgebraCalculator2 {
+// Simultaneous Equation Calculator
+public class SECalculator {
 
     private static Scanner scanner = new Scanner(System.in);
 
@@ -14,28 +15,6 @@ public class LinearAlgebraCalculator2 {
     public void parse(String input, int expressionNumber) throws Exception {
         List<String> orderOfOperations = List.of("x", "y", "z", "=");
         input = input.replace("+", ""); //Gets rid of +'s
-
-        // Input validation
-        if (!input.matches("(-?\\d*\\.?\\d*[xyz]\\s*)+(=\\s*-?\\d+\\.?\\d*)")) {
-            throw new Exception("Invalid input format! Use the form ax + by + cz = d.");
-            /*
-        Regex legend:
-        -? → Optional minus sign for negative numbers.
-	    \\d* → Zero or more digits (e.g., 123, or no digits like x for coefficient 1).
-	    \\.? → Optional decimal point (allows decimals like 3.5 or integers like 2).
-	    \\d* → Zero or more digits after the decimal point (e.g., 0.5 or 3.).
-	    [xyz] → Matches one of the variables x, y, or z.
-	    \\s* → Allows for zero or more spaces after the variable.
-	    + → The entire group can repeat one or more times (e.g., 3x, -2y, 0.5z).
-
-	    = → Matches the equals sign (=).
-	    \\s* → Allows for zero or more spaces after the equals sign.
-	    -? → Optional minus sign for negative values.
-	    \\d+ → One or more digits for the integer part (e.g., 5, 123).
-	    \\.? → Optional decimal point.
-	    \\d* → Zero or more digits for the fractional part (allows decimals like 4.5 or integers like 6).
-        */
-        }
 
         //Parses input and checks for the special characters
         ArrayList<String> expression = InputParser.parseFromString(input, orderOfOperations, "xyz=+-*/^=");
@@ -150,15 +129,15 @@ public class LinearAlgebraCalculator2 {
                 System.out.println("Solution: \nx = " + x + "\ny = " + y + "\nz = " + z);
             }
         } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
+            System.err.println("An error occurred: " + e.getMessage());
         }
     }
 
     public static void main(String[] args) {
 
-        // Created an instance of LinearAlgebraCalculator2
-        LinearAlgebraCalculator2 linearAlgebraCalculator2 = new LinearAlgebraCalculator2();
-        linearAlgebraCalculator2.solve();
+        // Created an instance of SECalculator
+        SECalculator SECalculator = new SECalculator();
+        SECalculator.solve();
 
 
 
