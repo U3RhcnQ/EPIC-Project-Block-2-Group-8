@@ -122,41 +122,6 @@ public class CalculatorInterface {
                             System.out.printf("%nSorry your input was invalid can you try again? %nSelect an option: ");
                             break;
                     }
-                case 4: //Calculus Calculator
-                    System.out.printf("%nYou Selected the Simultaneous Equation Calculator: %n");
-                    System.out.printf("Which are you looking for" +
-                            "%n%nIntegration: 1" +
-                            "%nDifferentiation: 2" +
-                            "%n%nEnter your choice: ");
-                    int choice = scanner.nextInt();
-                    String equationInput;
-                    switch (choice){
-                        case 1:
-                            scanner.nextLine();
-                            System.out.printf("%nYou have chosen Integration" +
-                                    "%nMake sure to Integrate relative to x" +
-                                    "%n%nPlease enter your equation:  ");
-
-                            equationInput = scanner.nextLine();
-
-                            Integration integration = new Integration(equationInput);
-                            integration.solve();
-                            break;
-                        case 2:
-                            scanner.nextLine();
-                            System.out.printf("%nYou have chosen Differentiation" +
-                                    "%n Make sure to Differentiate relative to x" +
-                                    "%n%nPlease enter your equation:  ");
-
-                            equationInput = scanner.nextLine();
-
-                            Differentiate differentiate = new Differentiate(equationInput);
-                            differentiate.solve();
-                            break;
-                        default:
-                            System.out.printf("%nSorry your input was invalid can you try again? %nSelect an option: ");
-                            break;
-                    }
                 default:
                     System.out.printf("%nSorry your input was invalid can you try again? %nSelect an option: ");
                     break;
