@@ -90,6 +90,37 @@ public class CalculatorInterface {
                         Thread.sleep(25); // Delay for 25 milliseconds
                     }
                     break;
+                case 4:
+                    System.out.printf("%nYou Selected the Simultaneous Equation Calculator: %n");
+                    System.out.printf("Which are you looking for" +
+                            "%n%n Integration: 1" +
+                            "%n Differentiation: 2");
+                    int choice = scanner.nextInt();
+                    String equationInput;
+                    switch (choice){
+                        case 1:
+                            System.out.printf("%nYou have chosen Integration" +
+                                    "%n Make sure to Integrate relative to x" +
+                                    "%n%nPlease enter your equation:  ");
+
+                            equationInput = scanner.nextLine();
+
+                            Integration integration = new Integration(equationInput);
+                            integration.solve();
+                            break;
+                        case 2:
+                            System.out.printf("%nYou have chosen Differentiation" +
+                                    "%n Make sure to Differentiate relative to x" +
+                                    "%n%nPlease enter your equation:  ");
+
+                            equationInput = scanner.nextLine();
+                            Differentiate differentiate = new Differentiate(equationInput);
+                            differentiate.solve();
+                            break;
+                        default:
+                            System.out.printf("%nSorry your input was invalid can you try again? %nSelect an option: ");
+                            break;
+                    }
                 case 4: //Calculus Calculator
                     System.out.printf("%nYou Selected the Simultaneous Equation Calculator: %n");
                     System.out.printf("Which are you looking for" +
