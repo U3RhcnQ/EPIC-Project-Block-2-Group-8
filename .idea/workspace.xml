@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1d4ebdb-f9d3-4cd6-899b-c58737844ebf" name="Changes" comment="finished kids calc stuff">
+    <list default="true" id="b1d4ebdb-f9d3-4cd6-899b-c58737844ebf" name="Changes" comment="added kids calc to CalculatorInterfac">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CalculatorInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CalculatorInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/KidsCalc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KidsCalc.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -138,7 +137,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734461345385</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="added kids calc to CalculatorInterfac">
+      <option name="closed" value="true" />
+      <created>1734462851104</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1734462851104</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -162,6 +169,7 @@
     <MESSAGE value="Kids Calculator" />
     <MESSAGE value="Error handling for strings" />
     <MESSAGE value="finished kids calc stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="finished kids calc stuff" />
+    <MESSAGE value="added kids calc to CalculatorInterfac" />
+    <option name="LAST_COMMIT_MESSAGE" value="added kids calc to CalculatorInterfac" />
   </component>
 </project>

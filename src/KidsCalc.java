@@ -2,7 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class KidsCalc {
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     public void start() {
         int choice;
@@ -14,18 +14,24 @@ public class KidsCalc {
     }
 
     private void kidsMenu() {
-        System.out.print("\nWelcome to Kids Calculator!\n\nEnter '1' to learn addition!");
-        System.out.print("\nEnter '2' to learn subtraction!\nEnter '3' to learn division!\n");
-        System.out.println("Enter '4' to learn multiplication!\n\nEnter '0' to exit");
+        System.out.println("\nWelcome to Kids Calculator!\n" +
+                "\nEnter '1' to learn addition!" +
+                "\nEnter '2' to learn subtraction!" +
+                "\nEnter '3' to learn division!" +
+                "\nEnter '4' to learn multiplication!" +
+                "\n\nEnter '0' to exit");
     }
+
+    public static final int INVALID_INPUT = -23;
+
 
     private int getChoice() {
         try {
             return scanner.nextInt();
-        } catch (Exception e) {
+        } catch (InputMismatchException e) {
             scanner.nextLine();
             System.out.println("Invalid input. Please enter a number from 1 to 4");
-            return -23;
+            return INVALID_INPUT;
         }
     }
     int num1 = 0;
