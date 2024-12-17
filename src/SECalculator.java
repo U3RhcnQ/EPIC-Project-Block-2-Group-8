@@ -12,12 +12,14 @@ public class SECalculator extends Calculator{
     private double a2 = 0, b2 = 0, c2 = 0, d2 = 0;
     private double a3 = 0, b3 = 0, c3 = 0, d3 = 0;
 
-    private int expressionNumber;
+    private int expressionNumber; //how many variables in the equation
 
+    //
     public SECalculator() {
         super("");
     }
 
+    //sets the expression number, to decide how the variables will be calculator
     private void setExpressionNumber(int expressionNumber){
         this.expressionNumber = expressionNumber;
     }
@@ -43,7 +45,9 @@ public class SECalculator extends Calculator{
 
                     if (coefficient.isEmpty()) {
                         a = 1;
-                    } else if(coefficient.equals("-")) {
+                    } else if(coefficient.equals("+")) {
+                        a = 1;
+                    }else if(coefficient.equals("-")) {
                         a = -1;
                     }else {
                         try {
@@ -57,7 +61,11 @@ public class SECalculator extends Calculator{
 
                     if (coefficient.isEmpty()) {
                         b = 1;
-                    } else {
+                    } else if(coefficient.equals("+")) {
+                        b = 1;
+                    }else if(coefficient.equals("-")) {
+                        b = -1;
+                    }else {
                         try {
                             b = Double.parseDouble(coefficient);
                         } catch (NumberFormatException e) {
@@ -69,7 +77,11 @@ public class SECalculator extends Calculator{
 
                     if (coefficient.isEmpty()) {
                         c = 1;
-                    } else {
+                    } else if(coefficient.equals("+")) {
+                        c = 1;
+                    }else if(coefficient.equals("-")) {
+                        c = -1;
+                    }else {
                         try {
                             c = Double.parseDouble(coefficient);
                         } catch (NumberFormatException e) {
@@ -81,7 +93,19 @@ public class SECalculator extends Calculator{
                 }
             }
         } catch (Exception e) {
-            throw new Exception("Invalid number input.");
+            throw new Exception(e);
+        }
+
+        //Checks if the equation has at least one variable
+        boolean hasVariableAndEquals = false;
+        for(String item: expression){
+            if((item.equals("x") || item.equals("y") || item.equals("z")) && item.equals("==") ){
+                hasVariableAndEquals = true;
+                break;
+            }
+        }
+        if(!hasVariableAndEquals){
+            throw new Exception("The equation must have at least one variable (x,y or z)");
         }
 
         //Assigning the coefficient to the variable
@@ -141,6 +165,7 @@ public class SECalculator extends Calculator{
             parse();
         }
 
+
         if (k == 1) {
             if (a1 < 1e-9) {
                 System.out.println("No solution or infinite solutions exist.");
@@ -149,9 +174,7 @@ public class SECalculator extends Calculator{
                 response = "Solution: \nx = " + x;
             }
         } else if (k == 2) {
-            System.out.printf("a1:%f a2:%f a3:%f b1:%f b2:%f b3:%f %n", a1, a2, a3, b1, b2 ,b3);
             double determinant = Math.abs((a1 * b2) - (a2 * b1));
-            System.out.println(determinant);
 
             if (determinant < 1e-9) {
                 throw new Exception("No unique solution exists (either no solution or infinitely many solutions).");
