@@ -4,11 +4,6 @@ import java.util.Scanner;
 public class KidsCalc {
     Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        KidsCalc calc = new KidsCalc();
-        calc.start();
-    }
-
     public void start() {
         int choice;
         do {

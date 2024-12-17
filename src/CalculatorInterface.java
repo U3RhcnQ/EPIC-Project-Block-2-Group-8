@@ -23,7 +23,7 @@ public class CalculatorInterface {
             System.out.printf("What do you want to do ?" +
                     "%n%n 1: Arithmetic Calculator" +
                     "%n 2: Algebraic Calculator" +
-                    "%n 3: Arithmetic Game" +
+                    "%n 3: Kids Calculator" +
                     "%n 4: Calculus Calculator" +
                     "%n 0: Exit"+
                     "%n%nSelect an option: ");
@@ -89,6 +89,10 @@ public class CalculatorInterface {
                         // Bad fix for out of order error printing
                         Thread.sleep(25); // Delay for 25 milliseconds
                     }
+                    break;
+                case 3:
+                    KidsCalc calc = new KidsCalc();
+                    calc.start();
                     break;
                 case 4: //Calculus Calculator
                     System.out.printf("%nYou Selected the Simultaneous Equation Calculator: %n");
