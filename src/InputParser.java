@@ -22,6 +22,7 @@ public class InputParser {
         System.out.printf("%nLet's solve the following: %s%n", expression);
 
 
+        // loop through the whole expression
         for(int i = 0; i < expression.length(); i++){
 
             String c = String.valueOf(expression.charAt(i));
