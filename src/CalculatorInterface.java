@@ -80,7 +80,7 @@ public class CalculatorInterface {
                     SECalculator SECalculator = new SECalculator();
                     SECalculator.solve();
                     break;
-                case 4:
+                case 4: //Calculus Calculator
                     System.out.printf("%nYou Selected the Simultaneous Equation Calculator: %n");
                     System.out.printf("Which are you looking for" +
                             "%n%n Integration: 1" +
@@ -104,6 +104,7 @@ public class CalculatorInterface {
                                     "%n%nPlease enter your equation:  ");
 
                             equationInput = scanner.nextLine();
+
                             Differentiate differentiate = new Differentiate(equationInput);
                             differentiate.solve();
                             break;
