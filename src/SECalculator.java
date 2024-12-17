@@ -105,7 +105,7 @@ public class SECalculator extends Calculator{
             }
         }
         if(!hasVariableAndEquals){
-            throw new Exception("The equation must have at least one variable (x,y or z)");
+            throw new Exception("The equation must have at least one variable (x,y or z) and an equals sign (=)");
         }
 
         //Assigning the coefficient to the variable
