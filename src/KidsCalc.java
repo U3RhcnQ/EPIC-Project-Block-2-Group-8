@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class KidsCalc {
@@ -31,36 +32,49 @@ public class KidsCalc {
         } catch (Exception e) {
             scanner.nextLine();
             System.out.println("Invalid input. Please enter a number from 1 to 4");
-            return -1;
+            return -23;
         }
     }
-    private int validNumber() {
 
-        while (!validAddInput) {
-            System.out.println("Enter number 1 ( Must be between 0 and 10 ):");
-            num1 = scanner.nextInt();
-            if (num1 > 0 && num1 < 10) {
-                validAddInput = true;
-            } else {
-                System.out.println("Number 1 must be between 0 and 10. Please try again");
-            }
-        } return -1;
-    }
     int num1 = 0;
     int num2 = 0;
     boolean validAddInput = false;
     boolean validAddInput2 = false;
 
+    private int validNumber() {
+
+        while (!validAddInput) {
+            System.out.println("Enter number 1 ( Must be between 0 and 10 ):");
+
+            try{num1 = scanner.nextInt();
+                if (num1 > 0 && num1 < 10) {
+                    validAddInput = true;
+                }
+                else {
+                    System.out.println("Number 1 must be between 0 and 10. Please try again");
+                }
+            } catch(InputMismatchException e){
+                System.out.println("Must enter a number.");
+                scanner.next();
+            }
+
+        } return -1;
+    }
 
     private int validNumber2() {
 
         while(!validAddInput2){
             System.out.println("Enter number 2 ( Must be between 0 and 10 ):");
-            num2 = scanner.nextInt();
-            if (num2 > 0 && num2 <10){
-                validAddInput2 = true;
-            }else {
-                System.out.println("Number 2 must be between 0 and 10. Please try again");
+            try{num2 = scanner.nextInt();
+                if (num2 > 0 && num2 < 10) {
+                    validAddInput2 = true;
+                }
+                else {
+                    System.out.println("Number 1 must be between 0 and 10. Please try again");
+                }
+            } catch(InputMismatchException e){
+                System.out.println("Must enter a number.");
+                scanner.next();
             }
         } return -1;
     }
@@ -130,10 +144,13 @@ public class KidsCalc {
 
             case 2:
                 System.out.println("\nSubtraction selected!\nNOTE: Number 1 must be bigger than Number 2");
+
                 num1 = 0;
                 num2 = 0;
                 validAddInput = false;
                 validAddInput2 = false;
+
+
                 validNumber();
                 validNumber2();
                 int subresult = num1 - num2;
@@ -344,6 +361,12 @@ public class KidsCalc {
                 break;
             case 0:
                 System.out.println("Kids Calculator closed.");
+                break;
+
+            //if string is entered, at selection stage
+            case -23:
+                System.out.println();
+                break;
 
             default:
                 System.out.println("Invalid input. Number must be from 1 to 4");
