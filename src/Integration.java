@@ -10,14 +10,15 @@ public class Integration extends Calculator {
         this.inputEquation = expression;
     }
 
-    public ArrayList<String> parse(String input) throws Exception {
-        ArrayList<String> expression = InputParser.parseFromString(input, orderOfOperations, "x+-*/^=");
-        return expression;
+    @Override
+    public void parse() throws Exception {
+        setExpressionList(InputParser.parseFromString(inputEquation, orderOfOperations, "x+-*/^="));
     }
 
-    public void solve() throws Exception {
-        ArrayList<String> elementList = parse(inputEquation);
-
+    @Override
+    public String solve() throws Exception {
+        parse();
+        ArrayList<String> elementList = getExpressionList();
         String equation = "";
         for (int index = 0; index < elementList.size(); index++) {
             String item = elementList.get(index);
@@ -40,6 +41,7 @@ public class Integration extends Calculator {
             equation = equation.substring(0, equation.length() - 1);
             System.out.printf("After removing this operand we are left with: %s%n", equation);
         }
+        return equation;
     }
 
     private String integrate(String expression){
