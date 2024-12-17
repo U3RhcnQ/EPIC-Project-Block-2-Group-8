@@ -10,6 +10,7 @@ public class Differentiate extends Calculator{
         this.inputEquation = expression;
     }
 
+    @Override
     public ArrayList<String> parse(String input) throws Exception {
         ArrayList<String> expression = InputParser.parseFromString(input, orderOfOperations, "x+-*/^=");
         return expression;
