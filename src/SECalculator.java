@@ -24,20 +24,23 @@ public class SECalculator extends Calculator{
         this.expressionNumber = expressionNumber;
     }
 
+    //gets the expression number
     private int getExpressionNumber(){ return this.expressionNumber; }
 
+    //overrides the parse from calculator
+    //parses the expression
     @Override
     public void parse() throws Exception {
 
         String input = getExpression();
-        List<String> orderOfOperations = List.of("x", "y", "z", "=");
-        //input = input.replace("+", ""); //Gets rid of +'s
+        List<String> orderOfOperations = List.of("x", "y", "z", "="); //operators
 
         //Parses input and checks for the special characters
         ArrayList<String> expression = InputParser.parseFromString(input, orderOfOperations, "xyz=+-*/^=");
         double a = 0, b = 0, c = 0, d = 0;
 
         try {
+            //iterates through the expression to find the operators(variables)
             for (int i = 0; i < expression.size(); i++) {
                 String item = expression.get(i); //gets the current element in the list
                 if (item.equals("x")) {
@@ -93,20 +96,10 @@ public class SECalculator extends Calculator{
                 }
             }
         } catch (Exception e) {
-            throw new Exception(e);
+            throw new Exception(e.getMessage());
         }
 
-        //Checks if the equation has at least one variable
-        boolean hasVariableAndEquals = false;
-        for(String item: expression){
-            if((item.equals("x") || item.equals("y") || item.equals("z")) && item.equals("==") ){
-                hasVariableAndEquals = true;
-                break;
-            }
-        }
-        if(!hasVariableAndEquals){
-            throw new Exception("The equation must have at least one variable (x,y or z) and an equals sign (=)");
-        }
+
 
         //Assigning the coefficient to the variable
         switch (getExpressionNumber()) {
@@ -135,8 +128,8 @@ public class SECalculator extends Calculator{
     @Override
     String solve() throws Exception{
 
-        int k = 0;
-        String response = "";
+        int k = 0; //number of variables
+        String response = ""; //initialise output of method(default)
 
         System.out.println("\nExpression must be in the form of:");
         System.out.println("For 1 variable: ax = d");
@@ -153,10 +146,12 @@ public class SECalculator extends Calculator{
         }
         scanner.nextLine();
 
+        //checks if number of variables is between 1 and 3
         if (k < 1 || k > 3) {
             throw new Exception("Number of variables must be between 1 and 3.");
         }
 
+        //captures the input expressions
         for (int i = 1; i <= k; i++) {
             System.out.print("\nExpression " + i + ": ");
             String expression = scanner.nextLine();
