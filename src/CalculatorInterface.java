@@ -83,14 +83,16 @@ public class CalculatorInterface {
                 case 4: //Calculus Calculator
                     System.out.printf("%nYou Selected the Simultaneous Equation Calculator: %n");
                     System.out.printf("Which are you looking for" +
-                            "%n%n Integration: 1" +
-                            "%n Differentiation: 2");
+                            "%n%nIntegration: 1" +
+                            "%nDifferentiation: 2" +
+                            "%n%nEnter your choice: ");
                     int choice = scanner.nextInt();
                     String equationInput;
                     switch (choice){
                         case 1:
+                            scanner.nextLine();
                             System.out.printf("%nYou have chosen Integration" +
-                                    "%n Make sure to Integrate relative to x" +
+                                    "%nMake sure to Integrate relative to x" +
                                     "%n%nPlease enter your equation:  ");
 
                             equationInput = scanner.nextLine();
@@ -99,6 +101,7 @@ public class CalculatorInterface {
                             integration.solve();
                             break;
                         case 2:
+                            scanner.nextLine();
                             System.out.printf("%nYou have chosen Differentiation" +
                                     "%n Make sure to Differentiate relative to x" +
                                     "%n%nPlease enter your equation:  ");

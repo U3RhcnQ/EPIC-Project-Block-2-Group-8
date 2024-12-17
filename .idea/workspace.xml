@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1d4ebdb-f9d3-4cd6-899b-c58737844ebf" name="Changes" comment="">
+    <list default="true" id="b1d4ebdb-f9d3-4cd6-899b-c58737844ebf" name="Changes" comment="added comments to CalculatorInterface">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Differenciate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Differentiate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CalculatorInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CalculatorInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Integration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Integration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +52,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.CalculatorInterface.executor": "Run",
     "Application.Differenciate.executor": "Run",
     "Application.Differentiate.executor": "Run",
     "Application.Integration.executor": "Run",
@@ -78,7 +80,39 @@
       <option name="project" value="LOCAL" />
       <updated>1734341775319</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added integration class">
+      <option name="closed" value="true" />
+      <created>1734440727664</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1734440727664</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added integration class">
+      <option name="closed" value="true" />
+      <created>1734440770832</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1734440770832</updated>
+    </task>
+    <task id="LOCAL-00004" summary="added calculus to the interface">
+      <option name="closed" value="true" />
+      <created>1734441872420</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1734441872420</updated>
+    </task>
+    <task id="LOCAL-00005" summary="added comments to CalculatorInterface">
+      <option name="closed" value="true" />
+      <created>1734441925864</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1734441925864</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -94,6 +128,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="changed Differenciate class name" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed Differenciate class name" />
+    <MESSAGE value="added integration class" />
+    <MESSAGE value="added calculus to the interface" />
+    <MESSAGE value="added comments to CalculatorInterface" />
+    <option name="LAST_COMMIT_MESSAGE" value="added comments to CalculatorInterface" />
   </component>
 </project>

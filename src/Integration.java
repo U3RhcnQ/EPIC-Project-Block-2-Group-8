@@ -67,10 +67,11 @@ public class Integration extends Calculator {
                 resultString = String.format("%.2f",result);
             }
             resultString+="x^2";
+            expression = resultString;
         }else {
             expression+="x";
-            return expression;
+
         }
-        return resultString;
+        return expression;
     }
 }
