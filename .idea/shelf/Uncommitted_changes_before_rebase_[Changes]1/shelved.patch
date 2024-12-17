@@ -1,0 +1,97 @@
+Index: src/Differenciate.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import java.util.ArrayList;\r\n\r\npublic class Differenciate {\r\n    static String equation = \"2x^2+6x-1\";\r\n\r\n\r\n    public static void main(String[] args) {\r\n        ArrayList<String> elementList = new ArrayList<String>();\r\n\r\n        while (equation.contains(\"x\")) {\r\n            int index = equation.indexOf(\"x\");\r\n\r\n            if (equation.substring(index+1, index+2).equals(\"^\")) {\r\n                elementList.add(equation.substring(0, index+3));\r\n                equation = equation.substring(index+3);\r\n            }else{\r\n                elementList.add(equation.substring(0, index+1));\r\n                equation = equation.substring(index+1);\r\n            }\r\n        }\r\n\r\n        equation = \"\";\r\n        for (int index = 0; index<elementList.size(); index++){\r\n            equation = equation + differenciate(elementList.get(index));\r\n        }\r\n\r\n        System.out.println(equation);\r\n    }\r\n\r\n    private static String differenciate(String expression){\r\n        if (expression.contains(\"^\")) {\r\n            int index = expression.indexOf(\"^\");\r\n            int number = Integer.parseInt(expression.substring(0, index-1));\r\n            int power = Integer.parseInt(expression.substring(expression.length()-1));\r\n            number *= power;\r\n            power--;\r\n            if (power == 1) {\r\n                expression = String.valueOf(number) + \"x\";\r\n            }else{\r\n                expression = String.valueOf(number) + expression.substring(index-1, expression.length()-1) + String.valueOf(power);\r\n            }\r\n        }else{\r\n            expression = expression.substring(0,expression.length()-1);\r\n        }\r\n        return expression;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Differenciate.java b/src/Differenciate.java
+--- a/src/Differenciate.java	(revision f2546e84b3e2a91c5e882eb82b5c9af850f56818)
++++ b/src/Differenciate.java	(date 1734340304356)
+@@ -1,11 +1,14 @@
+ import java.util.ArrayList;
++import java.util.List;
+ 
+ public class Differenciate {
+     static String equation = "2x^2+6x-1";
+ 
+ 
+-    public static void main(String[] args) {
+-        ArrayList<String> elementList = new ArrayList<String>();
++    public static void main(String[] args) throws Exception {
++        List<String> operations = List.of("^","*","/","+","-");
++        System.out.println(InputParser.parseFromString(equation,operations,""));
++        /*ArrayList<String> elementList = new ArrayList<String>();
+ 
+         while (equation.contains("x")) {
+             int index = equation.indexOf("x");
+@@ -25,8 +28,9 @@
+         }
+ 
+         System.out.println(equation);
++         */
+     }
+-
++    /*
+     private static String differenciate(String expression){
+         if (expression.contains("^")) {
+             int index = expression.indexOf("^");
+@@ -44,4 +48,5 @@
+         }
+         return expression;
+     }
++    */
+ }
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision f2546e84b3e2a91c5e882eb82b5c9af850f56818)
++++ /dev/null	(revision f2546e84b3e2a91c5e882eb82b5c9af850f56818)
+@@ -1,8 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+-/misc.xml
+-/vcs.xml
+-/modules.xml
+-/out/
+-
+Index: .idea/EPIC-Project-Block-2-Group-8.iml
+===================================================================
+diff --git a/.idea/EPIC-Project-Block-2-Group-8.iml b/.idea/EPIC-Project-Block-2-Group-8.iml
+deleted file mode 100644
+--- a/.idea/EPIC-Project-Block-2-Group-8.iml	(revision f2546e84b3e2a91c5e882eb82b5c9af850f56818)
++++ /dev/null	(revision f2546e84b3e2a91c5e882eb82b5c9af850f56818)
+@@ -1,12 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module type="JAVA_MODULE" version="4">
+-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+-    <exclude-output />
+-    <content url="file://$MODULE_DIR$">
+-      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
+-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+-    </content>
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-  </component>
+-</module>
+\ No newline at end of file
+Index: EPIC-Project-Block-2-Group-8.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/out\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/EPIC-Project-Block-2-Group-8.iml b/EPIC-Project-Block-2-Group-8.iml
+--- a/EPIC-Project-Block-2-Group-8.iml	(revision f2546e84b3e2a91c5e882eb82b5c9af850f56818)
++++ b/EPIC-Project-Block-2-Group-8.iml	(date 1734340304381)
+@@ -4,7 +4,6 @@
+     <exclude-output />
+     <content url="file://$MODULE_DIR$">
+       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+-      <excludeFolder url="file://$MODULE_DIR$/out" />
+     </content>
+     <orderEntry type="inheritedJdk" />
+     <orderEntry type="sourceFolder" forTests="false" />
