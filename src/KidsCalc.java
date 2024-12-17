@@ -1,212 +1,310 @@
 import java.util.Scanner;
 
 public class KidsCalc {
+    Scanner scanner = new Scanner(System.in);
 
-    private int choice;
+    public static void main(String[]args){
+        KidsCalc calc = new KidsCalc();
+        calc.start();
+    }
 
-    public static void main(String[] args){
-        //prompt
+    public void start() {
+        int choice;
+        do {
+            kidsMenu();
+            choice = getChoice();
+            processChoice(choice);
+        } while (choice != 0);
+    }
+
+    private void kidsMenu()
+
+    {
         System.out.print("Welcome to Kids Calculator!\n\nEnter '1' to learn addition!");
         System.out.print("\nEnter '2' to learn subtraction!\nEnter '3' to learn division!\n");
-        System.out.println("Enter '4' to learn multiplication!");
+        System.out.println("Enter '4' to learn multiplication!\n\nEnter '0' to exit");
+    }
 
-        Scanner scanner = new Scanner(System.in);
+    private int getChoice() {
+        try {
+            return scanner.nextInt();
+        } catch (Exception e) {
+            scanner.nextLine();
+            System.out.println("Invalid input. Please enter a number from 1 to 4");
+            return -1;
+        }
+    }
+    private int validNumber() {
 
-        int choice = scanner.nextInt();
+        while (!validAddInput) {
+            System.out.println("Enter number 1 ( Must be between 0 and 10 ):");
+            num1 = scanner.nextInt();
+            if (num1 > 0 && num1 < 10) {
+                validAddInput = true;
+            } else {
+                System.out.println("Number 1 must be between 0 and 10. Please try again");
+            }
+        } return -1;
+    }
+    int num1 = 0;
+    int num2 = 0;
+    boolean validAddInput = false;
+    boolean validAddInput2 = false;
 
+
+    private int validNumber2() {
+
+        while(!validAddInput2){
+            System.out.println("Enter number 2 ( Must be between 0 and 10 ):");
+            num2 = scanner.nextInt();
+            if (num2 > 0 && num2 <10){
+                validAddInput2 = true;
+            }else {
+                System.out.println("Number 2 must be between 0 and 10. Please try again");
+            }
+        } return -1;
+    }
+
+    private void processChoice(int choice){
         switch (choice){
             case 1:
-                System.out.print("\nAddition selected!\nEnter number 1:\n");
-                int add1 = scanner.nextInt();
-                System.out.print("\nEnter number 2:\n");
-                int add2 = scanner.nextInt();
-                int addresult = add1 + add2;
+                System.out.print("\nAddition selected!\n\n");
+                num1 = 0;
+                num2 = 0;
+                validAddInput = false;
+                validAddInput2 = false;
+                validNumber();
+                validNumber2();
+                int addresult = num1 + num2;
 
-                for( int i = 1; i <= add1; i++){
-                    System.out.print("+-----+ ");}
-                System.out.print("                ");
-                for( int i = 1; i <= add2; i++){
-                    System.out.print("+-----+ ");}
-                System.out.print("                ");
-                for( int i = 1; i <= addresult; i++){
-                    System.out.print("+-----+ ");}
 
-                System.out.println();
-
-                for(int i =1;i <= add1; i++){
-                    System.out.print("|  "+i+"  | ");
-                }
-                System.out.print("      PLUS      ");
-                for( int i = 1; i <= add2; i++){
-                    System.out.print("|  "+i+"  | ");}
-                System.out.print("     EQUALS     ");
-                for( int i = 1; i <= addresult; i++){
-                    System.out.print("|  "+i+"  | ");}
-
-                System.out.println();
-
-                for(int i =1;i <= add1; i++){
+                for (int i = 1; i <= num1; i++) {
                     System.out.print("+-----+ ");
                 }
                 System.out.print("                ");
-                for( int i = 1; i <= add2; i++){
-                    System.out.print("+-----+ ");}
+                for (int i = 1; i <= num2; i++) {
+                    System.out.print("+-----+ ");
+                }
                 System.out.print("                ");
-                for( int i = 1; i <= addresult; i++){
-                    System.out.print("+-----+ ");}
+                for (int i = 1; i <= addresult; i++) {
+                    System.out.print("+-----+ ");
+                }
 
-                System.out.println("\n\n As we can see: "+ add1 + " + " + add2 + " Equals " + addresult);
+                System.out.println();
+
+                for (int i = 1; i <= num1; i++) {
+                    System.out.print("|  " + i + "  | ");
+                }
+                System.out.print("      PLUS      ");
+                for (int i = 1; i <= num2; i++) {
+                    System.out.print("|  " + i + "  | ");
+                }
+                System.out.print("     EQUALS     ");
+
+                int j = 1;
+                while(j<10 && j <= addresult){
+
+                    System.out.print("|  " + j + "  | ");
+                    j++;}
+                for (int i = 10; i <= addresult; i++) {
+                    System.out.print("|  " + i + " | ");}
+
+
+                System.out.println();
+
+                for (int i = 1; i <= num1; i++) {
+                    System.out.print("+-----+ ");
+                }
+                System.out.print("                ");
+                for (int i = 1; i <= num2; i++) {
+                    System.out.print("+-----+ ");
+                }
+                System.out.print("                ");
+                for (int i = 1; i <= addresult; i++) {
+                    System.out.print("+-----+ ");
+                }
+
+                System.out.println("\n\n As we can see: " + num1 + " + " + num2 + " Equals " + addresult);
                 break;
 
 
             case 2:
-                System.out.print("\nSubtraction selected!\nEnter number 1:\n");
-                int sub1 = scanner.nextInt();
-                System.out.print("\nEnter number 2:\n");
-                int sub2 = scanner.nextInt();
-                int subresult = sub1 - sub2;
+                System.out.println("\nSubtraction selected!\nNOTE: Number 1 must be bigger than Number 2");
+                num1 = 0;
+                num2 = 0;
+                validAddInput = false;
+                validAddInput2 = false;
+                validNumber();
+                validNumber2();
+                int subresult = num1 - num2;
 
-                for( int i = 1; i <= sub1; i++){
-                    System.out.print("+-----+ ");}
-                System.out.print("                ");
-                for( int i = 1; i <= sub2; i++){
-                    System.out.print("+-----+ ");}
-                System.out.print("                ");
-                for( int i = 1; i <= subresult; i++){
-                    System.out.print("+-----+ ");}
-
-                System.out.println();
-
-                for(int i =1;i <= sub1; i++){
-                    System.out.print("|  "+i+"  | ");
-                }
-                System.out.print("      MINUS     ");
-                for( int i = 1; i <= sub2; i++){
-                    System.out.print("|  "+i+"  | ");}
-                System.out.print("     EQUALS     ");
-                for( int i = 1; i <= subresult; i++){
-                    System.out.print("|  "+i+"  | ");}
-
-                System.out.println();
-
-                for(int i =1;i <= sub1; i++){
+                for (int i = 1; i <= num1; i++) {
                     System.out.print("+-----+ ");
                 }
                 System.out.print("                ");
-                for( int i = 1; i <= sub2; i++){
-                    System.out.print("+-----+ ");}
+                for (int i = 1; i <= num2; i++) {
+                    System.out.print("+-----+ ");
+                }
                 System.out.print("                ");
-                for( int i = 1; i <= subresult; i++){
-                    System.out.print("+-----+ ");}
+                for (int i = 1; i <= subresult; i++) {
+                    System.out.print("+-----+ ");
+                }
 
-                System.out.println("\n\n As we can see: "+ sub1 + " - " + sub2 + " Equals " + subresult);
+                System.out.println();
+
+                for (int i = 1; i <= num1; i++) {
+                    System.out.print("|  " + i + "  | ");
+                }
+                System.out.print("      MINUS     ");
+                for (int i = 1; i <= num2; i++) {
+                    System.out.print("|  " + i + "  | ");
+                }
+                System.out.print("     EQUALS     ");
+                for (int i = 1; i <= subresult; i++) {
+                    System.out.print("|  " + i + "  | ");
+                }
+
+                System.out.println();
+
+                for (int i = 1; i <= num1; i++) {
+                    System.out.print("+-----+ ");
+                }
+                System.out.print("                ");
+                for (int i = 1; i <= num2; i++) {
+                    System.out.print("+-----+ ");
+                }
+                System.out.print("                ");
+                for (int i = 1; i <= subresult; i++) {
+                    System.out.print("+-----+ ");
+                }
+
+                System.out.println("\n\n As we can see: " + num1 + " - " + num2 + " Equals " + subresult);
                 break;
 
             case 3:
-                System.out.print("\nDivision selected!\nHow many apples does person 1 have?:\n");
-                int div1 = scanner.nextInt();
-                System.out.print("\nHow many people want some apples?:\n");
-                int div2 = scanner.nextInt();
-                int divresult = div1 / div2;
+                System.out.print("\nDivision selected!\n");
+                num1 = 0;
+                num2 = 0;
+                validAddInput = false;
+                validAddInput2 = false;
+                validNumber();
+                validNumber2();
+                int divresult = num1 / num2;
 
-                int x =1;
-                while(x < (divresult)) {
+                int x = 1;
+                while (x < (divresult)) {
 
-
-                    System.out.print("+-----+  ");
-                    System.out.print("                                        ");
-                    for (int i = 0; i < div2; i++) {
+                    for (int i = 0; i < num2; i++) {
+                        System.out.print("+-----+ ");
+                    }
+                    System.out.print("                                         ");
+                    for (int i = 0; i < num2; i++) {
                         System.out.print("        ");
                     }
                     System.out.println("+-----+ ");
-                    System.out.print("|  "+x+"  | ");
+                    for (int i = 0; i < num2; i++) {
+                        System.out.print("|  " + x + "  | ");
+                    }
                     System.out.print("                                         ");
-                    for (int i = 0; i < div2; i++) {
+                    for (int i = 0; i < num2; i++) {
                         System.out.print("        ");
                     }
-                    System.out.println("|  "+x+"  | ");
-                    System.out.print("+-----+  ");
-                    System.out.print("                                        ");
-                    for (int i = 0; i < div2; i++) {
+                    System.out.println("|  " + x + "  | ");
+                    for (int i = 0; i < num2; i++) {
+                        System.out.print("+-----+ ");
+
+                    }
+                    System.out.print("                                         ");
+                    for (int i = 0; i < num2; i++) {
                         System.out.print("        ");
                     }
                     System.out.println("+-----+");
 
 
-
-
-                        x++;
+                    x++;
                 }
-                System.out.print("+-----+ ");
+                for (int i = 0; i < num2; i++) {
+                    System.out.print("+-----+ ");
+
+                }
                 System.out.print("                      ");
 
 
-                for (int i = 1; i <= div2; i++) {
-                    System.out.print("+-----+ ");}
-                System.out.print("                   ");
-                    System.out.println("+-----+ ");
-
-                    System.out.print("|  "+divresult+"  | ");
-                System.out.print("      DIVIDED BY      ");
-
-                for(int i =1; i <= div2; i++){
-                    System.out.print("|  "+i+"  | ");}
-                System.out.print("     EQUALS        ");
-
-                    System.out.print("|  "+divresult+"  | ");
-                System.out.println();
-
-                System.out.print("+-----+ ");
-                System.out.print("                      ");
-
-
-                for (int i = 1; i <= div2; i++) {
-                    System.out.print("+-----+ ");}
+                for (int i = 1; i <= num2; i++) {
+                    System.out.print("+-----+ ");
+                }
                 System.out.print("                   ");
                 System.out.println("+-----+ ");
 
-                System.out.println("\n\n As we can see,if person 1 shares "+ div1 + " apples with " + div2 + " people,then everyone gets " + divresult + " apples");
-                System.out.print("In maths words: " + div1 + " divided by "+ div2 + " equals " + divresult);
+                for (int i = 0; i < num2; i++) {
+                    System.out.print("|  " + divresult + "  | ");
+                }
+                System.out.print("      DIVIDED BY      ");
+
+                for (int i = 1; i <= num2; i++) {
+                    System.out.print("|  " + i + "  | ");
+                }
+                System.out.print("     EQUALS        ");
+
+                System.out.print("|  " + divresult + "  | ");
+                System.out.println();
+
+                for (int i = 0; i < num2; i++) {
+                    System.out.print("+-----+ ");
+                }
+                System.out.print("                      ");
+
+
+                for (int i = 1; i <= num2; i++) {
+                    System.out.print("+-----+ ");
+                }
+                System.out.print("                   ");
+                System.out.println("+-----+ ");
+
+                System.out.println("\n\n As we can see,if person 1 shares " + num1 + " apples with " + num2 + " people,then everyone gets " + divresult + " apples");
+                System.out.println("In maths words: " + num1 + " divided by " + num2 + " equals " + divresult);
 
                 break;
 
             case 4:
-                System.out.print("\nMultiplication selected!\nHow many apples does person 1 have?:\n");
-                int mult1 = scanner.nextInt();
-                System.out.print("\nHow many people want some apples?:\n");
-                int mult2 = scanner.nextInt();
-                int multresult = mult1 * mult2;
+                System.out.print("\nMultiplication selected!\n");
+                num1 = 0;
+                num2 = 0;
+                validAddInput = false;
+                validAddInput2 = false;
+                validNumber();
+                validNumber2();
 
                 int z = 1;
-                while(z < mult1) {
+                while (z < num1) {
 
 
                     System.out.print("+-----+  ");
                     System.out.print("                                        ");
-                    for (int i = 0; i < mult2; i++) {
+                    for (int i = 0; i < num2; i++) {
                         System.out.print("        ");
                     }
 
-                    for (int i = 0; i < mult2; i++) {
+                    for (int i = 0; i < num2; i++) {
                         System.out.print("+-----+ ");
 
                     }
                     System.out.println();
                     System.out.print("|  " + z + "  | ");
                     System.out.print("                                         ");
-                    for (int i = 0; i < mult2; i++) {
+                    for (int i = 0; i < num2; i++) {
                         System.out.print("        ");
                     }
-                    for (int i = 1; i <= (mult2) ; i++) {
+                    for (int i = 1; i <= (num2); i++) {
                         System.out.print("|  " + i + "  | ");
                     }
                     System.out.println();
                     System.out.print("+-----+ ");
                     System.out.print("                                         ");
-                    for (int i = 0; i < mult2; i++) {
+                    for (int i = 0; i < num2; i++) {
                         System.out.print("        ");
                     }
-                    for (int i = 0; i < mult2; i++) {
+                    for (int i = 0; i < num2; i++) {
                         System.out.print("+-----+ ");
                     }
                     System.out.println();
@@ -214,35 +312,44 @@ public class KidsCalc {
                     z++;
                 }
                 System.out.print("+-----+                          ");
-//
 
-                for (int i = 0; i < mult2 ; i++) {
-                    System.out.print("+-----+ ");}
+
+                for (int i = 0; i < num2; i++) {
+                    System.out.print("+-----+ ");
+                }
                 System.out.print("                ");
-                for (int i = 0; i < mult2; i++) {
+                for (int i = 0; i < num2; i++) {
                     System.out.print("+-----+ ");
                 }
                 System.out.println();
-                System.out.print("|  "+mult1+"  |       MULTIPLIED BY      ");
-                for (int i = 1; i <= mult2; i++) {
-                    System.out.print("|  "+i+"  | ");}
+                System.out.print("|  " + num1 + "  |       MULTIPLIED BY      ");
+                for (int i = 1; i <= num2; i++) {
+                    System.out.print("|  " + i + "  | ");
+                }
                 System.out.print("     EQUALS     ");
-                for (int i = 1; i <= mult2; i++) {
-                    System.out.print("|  "+i+"  | ");
+                for (int i = 1; i <= num2; i++) {
+                    System.out.print("|  " + i + "  | ");
                 }
                 System.out.println();
                 System.out.print("+-----+                          ");
-                for (int i = 0; i < mult2 ; i++) {
-                    System.out.print("+-----+ ");}
-                System.out.print("                ");
-                for (int i = 0; i < mult2; i++) {
+                for (int i = 0; i < num2; i++) {
                     System.out.print("+-----+ ");
                 }
+                System.out.print("                ");
+                for (int i = 0; i < num2; i++) {
+                    System.out.print("+-----+ ");
+                }
+                System.out.println();
 
+                break;
+            case 0:
+                System.out.println("Kids Calculator closed.");
+
+            default:
+                System.out.println("Invalid input. Number must be from 1 to 4");
                 break;
 
 
         }
     }
-
 }
