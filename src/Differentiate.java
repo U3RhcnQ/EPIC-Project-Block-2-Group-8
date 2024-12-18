@@ -62,8 +62,10 @@ public class Differentiate extends Calculator{
             number *= power;
             power--;
             if (power == 1) {
-                expression = String.valueOf(number) + "x";
+                // add an x to the
+                expression = String.valueOf(number);
             }else{
+                // reconstruct the differentiated expression
                 expression = String.valueOf(number) + expression.substring(index-1, index+1) + String.valueOf(power);
             }
         // if the element has just an x with no power then remove the x
