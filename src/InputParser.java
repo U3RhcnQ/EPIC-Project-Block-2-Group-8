@@ -89,7 +89,7 @@ public class InputParser {
 
                 } else {
 
-                    if (!c.equals("(") && !c.equals(")") && !c.equals("-") && operators.contains(lastCharacter) && !((lastCharacter.equals("*") || lastCharacter.equals("^")) && c.equals("-")) && !( (lastCharacter.equals("z") || lastCharacter.equals("x") || lastCharacter.equals("y")) && c.equals("="))) {
+                    if (!c.equals("(") && !c.equals(")") && !c.equals("-") && operators.contains(lastCharacter) && !(lastCharacter.equals("*") || lastCharacter.equals("^")) && !( (lastCharacter.equals("z") || lastCharacter.equals("x") || lastCharacter.equals("y")) && c.equals("="))) {
                         throw new PrettyException("It looks like you have operators "+lastCharacter+" and "+c+" beside each other", expression, i);
 
                     } else if (i+1 == expression.length() && !c.equals(")")) {
