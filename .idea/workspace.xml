@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1d4ebdb-f9d3-4cd6-899b-c58737844ebf" name="Changes" comment="added kids calc to CalculatorInterfac">
+    <list default="true" id="b1d4ebdb-f9d3-4cd6-899b-c58737844ebf" name="Changes" comment="commented Integration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/KidsCalc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/KidsCalc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SECalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SECalculator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

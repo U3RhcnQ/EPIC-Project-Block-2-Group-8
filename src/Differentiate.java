@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Differentiate extends Calculator{
     private static String inputEquation;
-    List<String> orderOfOperations = List.of("*","/","+","-","(",")"); // List of the operands that include round brackets to make the parser treat these differently
+    List<String> orderOfOperations = List.of("*","/","+","-","(",")"); // List of the operands  that include round brackets to make the parser treat these differently
 
     // Constructor of the Differentiate object that takes in the user input and gives it's value to inputEquation
     public Differentiate(String expression) {
