@@ -97,9 +97,19 @@ public class CalculatorInterface {
                         Thread.sleep(25); // Delay for 25 milliseconds
                     }
                     break;
+
                 case 3:
-                    KidsCalc calc = new KidsCalc();
-                    calc.start();
+                    try {
+                        KidsCalc KidsCalc = new KidsCalc();
+                        KidsCalc.start();
+
+                    } catch(Exception e) {
+                        // Catch other potential exceptions
+                        System.err.printf("%nOh no we ran into the following error: %s%n%n", e.getMessage());
+                        //e.printStackTrace();
+                        // Bad fix for out of order error printing
+                        Thread.sleep(25); // Delay for 25 milliseconds
+                    }
                     break;
                 case 4: //Calculus Calculator
 
