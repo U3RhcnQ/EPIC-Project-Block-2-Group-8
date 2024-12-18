@@ -150,8 +150,7 @@ public class ArithmeticCalculator extends Calculator {
                // Update the Global expressionList
                setExpressionList(expressionList);
 
-               // Move back iterator by 1 to account for removed bracket
-               i--;
+               i = 0;
            }
        }
 
