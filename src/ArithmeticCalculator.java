@@ -58,6 +58,7 @@ public class ArithmeticCalculator extends Calculator {
                expressionList.remove(i - 1);
                minusFlag = false;
                lastOperator = false;
+               i--;
 
            }else if (!operators.contains(item) && !item.equals(")") && minusFlag && !expressionList.get(i-2).equals(")") && ( lastOperator || i == 1)) {
 
@@ -67,6 +68,7 @@ public class ArithmeticCalculator extends Calculator {
                expressionList.remove(i - 1);
                minusFlag = false;
                lastOperator = false;
+               i--;
 
            } else if (operators.contains(item) || item.equals(")") || item.equals("(")){
 
