@@ -40,15 +40,20 @@ public class Differentiate extends Calculator{
             }
         }
         System.out.println();
-        System.out.printf("This leaves us with the equation: %s%n",equation);
+        if (equation.length() > 0) {
+            System.out.printf("This leaves us with the equation: %s%n",equation);
 
-        // check is the last character in equation an operand if so remove it
-        char lastChar = equation.charAt(equation.length()-1);
-        if (!Character.isDigit(lastChar) && !String.valueOf(lastChar).equals("x")){
-            System.out.println();
-            System.out.println("It looks like there is an extra operand");
-            equation = equation.substring(0,equation.length()-1);
-            System.out.printf("After removing this operand we are left with: %s%n",equation);
+            // check is the last character in equation an operand if so remove it
+            char lastChar = equation.charAt(equation.length() - 1);
+            if (!Character.isDigit(lastChar) && !String.valueOf(lastChar).equals("x")) {
+                System.out.println();
+                System.out.println("It looks like there is an extra operand");
+                equation = equation.substring(0, equation.length() - 1);
+                System.out.printf("After removing this operand we are left with: %s%n", equation);
+            }
+        }else{
+            equation = "No derivative";
+            System.out.printf("This leaves us with the equation: %s%n",equation);
         }
         return equation;
     }
@@ -71,6 +76,8 @@ public class Differentiate extends Calculator{
         // if the element has just an x with no power then remove the x
         }else if (expression.contains("x")){
             expression = expression.substring(0,expression.length()-1);
+        }else {
+            expression = "";
         }
         return expression; // return the new element
     }
