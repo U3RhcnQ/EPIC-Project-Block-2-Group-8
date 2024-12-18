@@ -54,7 +54,7 @@ public class Integration extends Calculator {
             int power = Integer.parseInt(expression.substring(index+1));
             power++;
             // if it divides evenly use an int if not use a double and round to 2 decimal places
-            if (number/power % 1 == 0){
+            if ((double)number/power % 1 == 0){
                 int result = number / power;
                 resultString+=result;
             }else {
