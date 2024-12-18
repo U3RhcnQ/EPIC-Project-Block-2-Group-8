@@ -36,8 +36,12 @@ public class SECalculator extends Calculator{
         List<String> orderOfOperations = List.of("x", "y", "z", "="); //operators
 
         //Parses input and checks for the special characters
-        ArrayList<String> expression = InputParser.parseFromString(input, orderOfOperations, "xyz=+-*/^=");
+        ArrayList<String> expression = InputParser.parseFromString(input, orderOfOperations, "+-*/^");
         double a = 0, b = 0, c = 0, d = 0;
+
+        if (!expression.contains("=")) {
+            throw new PrettyException("looks like you are missing a = sign", input, input.length()-1);
+        }
 
         try {
             //iterates through the expression to find the operators(variables)
@@ -101,6 +105,8 @@ public class SECalculator extends Calculator{
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+
+
 
 
 

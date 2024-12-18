@@ -82,6 +82,13 @@ public class CalculatorInterface {
                         SECalculator SECalculator = new SECalculator();
                         System.out.println(SECalculator.solve());
 
+                    } catch (PrettyException e) {
+
+                        // Handle the PrettyException
+                        System.err.println(e.getMessage());
+                        // Bad fix for out of order error printing
+                        Thread.sleep(25); // Delay for 25 milliseconds
+
                     } catch (Exception e) {
                         // Catch other potential exceptions
                         System.err.printf("%nOh no we ran into the following error: %s%n%n", e.getMessage());
