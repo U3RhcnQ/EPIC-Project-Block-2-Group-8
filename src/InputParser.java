@@ -34,12 +34,8 @@ public class InputParser {
                 if (c.equals("(") && lastCharacter.equals(")")) {
                     throw new PrettyException("It looks like you have two sets of brackets with no operator between each other", expression, i);
 
-                } else if (i > 1 && c.equals("(")){
-
-                    if (!operators.contains(lastCharacter) && !lastCharacter.equals("(") && !lastCharacter.equals("-(")) {
-                        throw new PrettyException("It looks like you have a bracket and a number beside each other with no operator", expression, i);
-                    }
-                    openBracketCount++;
+                } else if (c.equals("(") && !operators.contains(lastCharacter)) {
+                    throw new PrettyException("It looks like you have a number and a  open bracket without a operator between", expression, i);
 
                 }else if (i == 0 && c.equals(")")) {
                     throw new PrettyException("It looks like you have an closing bracket before any number", expression, i);
@@ -61,33 +57,45 @@ public class InputParser {
                     throw new PrettyException("It looks like you have a operator "+c+" at the start of your expression with no number before it", expression, i);
                 }
 
+                if (i > 1 && c.equals("(")){
+
+                    if (!operators.contains(lastCharacter) && !lastCharacter.equals("(") && !lastCharacter.equals("-(")) {
+                        throw new PrettyException("It looks like you have a bracket and a number beside each other with no operator", expression, i);
+                    }
+                    }
+
                 // Check if the previous character was the same
-                if (lastCharacter.equals(c)){
+                if (lastCharacter.equals(c)) {
 
                     // Set double minus flag if only one minus beforehand
                     if (c.equals("-") && !doubleMinusFlag) {
                         doubleMinusFlag = true;
                         expressionList.add(c);
 
-                    // We have more than 2 minuses in a row now so we have to throw an error here
-                    } else if (c.equals("-")){
+                        // We have more than 2 minuses in a row now so we have to throw an error here
+                    } else if (c.equals("-")) {
                         throw new PrettyException("It looks like you have too many minuses beside each other", expression, i);
 
-                    // We have brackets here so we can reset the minus flag
+                        // We have brackets here so we can reset the minus flag
                     } else if (c.equals(")") || c.equals("(")) {
                         doubleMinusFlag = false;
                         expressionList.add(c);
 
-                    // Throw error we have double operator
+                        // Throw error we have double operator
                     } else {
-                        throw new PrettyException("It looks like you have identical operators "+c+" and "+c+" beside each other", expression, i);
+                        throw new PrettyException("It looks like you have identical operators " + c + " and " + c + " beside each other", expression, i);
 
                     }
 
                     if (i == 1 && doubleMinusFlag) {
                         throw new PrettyException("It looks like you have double - at the start of the expression", expression, i);
-                    }
 
+                    } else if (i > 1) {
+
+                        if (operators.contains(expressionList.get(i-2)) || expressionList.get(i-2).equals("(") || expressionList.get(i-2).equals(")") || expressionList.get(i-2).equals("-(")) {
+                            throw new PrettyException("It looks like you have a double minus after another operator "+c, expression, i);
+                        }
+                    }
                     lastHit = i+1;
 
                 } else {
