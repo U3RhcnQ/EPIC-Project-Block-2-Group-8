@@ -95,6 +95,8 @@ public class CalculatorInterface {
                     calc.start();
                     break;
                 case 4: //Calculus Calculator
+
+                    // Get the choice of Integration or Differentiation
                     System.out.printf("%nYou Selected the Simultaneous Equation Calculator: %n");
                     System.out.printf("Which are you looking for" +
                             "%n%n Integration: 1" +
@@ -104,6 +106,7 @@ public class CalculatorInterface {
                     String equationInput;
                     switch (choice){
                         case 1:
+                            // Get the user's equation from the user
                             System.out.printf("%nYou have chosen Integration" +
                                     "%n Make sure to Integrate relative to x" +
                                     "%n%nPlease enter your equation:  ");
@@ -111,10 +114,12 @@ public class CalculatorInterface {
                             scanner.nextLine();
                             equationInput = scanner.nextLine();
 
+                            // Create the integration object and input the equation
                             Integration integration = new Integration(equationInput);
                             integration.solve();
                             break;
                         case 2:
+                            // Get the user's equation from the user
                             System.out.printf("%nYou have chosen Differentiation" +
                                     "%n Make sure to Differentiate relative to x" +
                                     "%n%nPlease enter your equation:  ");
@@ -122,11 +127,12 @@ public class CalculatorInterface {
                             scanner.nextLine();
                             equationInput = scanner.nextLine();
 
+                            // Create the differentiation object and input the equation
                             Differentiate differentiate = new Differentiate(equationInput);
                             differentiate.solve();
                             break;
-                        default:
-                            System.out.printf("%nSorry your input was invalid can you try again? %nSelect an option: ");
+                        default:// In case an incorrect choice is given output this message
+                            System.out.printf("%nSorry your input was invalid, make sure to pick either 1 or 2");
                             break;
                     }
                     break;
