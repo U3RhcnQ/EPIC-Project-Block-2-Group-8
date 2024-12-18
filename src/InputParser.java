@@ -34,7 +34,13 @@ public class InputParser {
                 if (c.equals("(") && lastCharacter.equals(")")) {
                     throw new PrettyException("It looks like you have two sets of brackets with no operator between each other", expression, i);
 
-                } else if (i == 0 && c.equals(")")) {
+                } else if (i > 1 && c.equals("(")){
+
+                    if (!operators.contains(lastCharacter) && !lastCharacter.equals("(") && !lastCharacter.equals("-(")) {
+                        throw new PrettyException("It looks like you have a bracket and a number beside each other with no operator", expression, i);
+                    }
+
+                }else if (i == 0 && c.equals(")")) {
                     throw new PrettyException("It looks like you have an closing bracket before any number", expression, i);
 
                 } else if (c.equals(")")) {
@@ -47,6 +53,9 @@ public class InputParser {
 
                 } else if (c.equals("(")) {
                     openBracketCount++;
+
+                } else if (i == 0 && !c.equals("-")) {
+                    throw new PrettyException("It looks like you have a operator "+c+" at the start of your expression with no number before it", expression, i);
                 }
 
                 // Check if the previous character was the same
@@ -72,11 +81,15 @@ public class InputParser {
 
                     }
 
+                    if (i == 1 && doubleMinusFlag) {
+                        throw new PrettyException("It looks like you have double - at the start of the expression", expression, i);
+                    }
+
                     lastHit = i+1;
 
                 } else {
 
-                    if (!c.equals("(") && !c.equals(")") && !lastCharacter.equals("-") && operators.contains(lastCharacter) && !((lastCharacter.equals("*") || lastCharacter.equals("^")) && c.equals("-")) && !( (lastCharacter.equals("z") || lastCharacter.equals("x") || lastCharacter.equals("y")) && c.equals("="))) {
+                    if (!c.equals("(") && !c.equals(")") && !c.equals("-") && operators.contains(lastCharacter) && !((lastCharacter.equals("*") || lastCharacter.equals("^")) && c.equals("-")) && !( (lastCharacter.equals("z") || lastCharacter.equals("x") || lastCharacter.equals("y")) && c.equals("="))) {
                         throw new PrettyException("It looks like you have operators "+lastCharacter+" and "+c+" beside each other", expression, i);
 
                     } else if (i+1 == expression.length() && !c.equals(")")) {

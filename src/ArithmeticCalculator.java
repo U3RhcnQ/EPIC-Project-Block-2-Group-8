@@ -50,7 +50,16 @@ public class ArithmeticCalculator extends Calculator {
            // Here we check for any single numbers with a minus in front, and we convert it into a negative number where needed
            // eg: +,-,2 equals: +,-2
 
-           } else if (!operators.contains(item) && !item.equals(")") && minusFlag && !expressionList.get(i-2).equals(")") && ( lastOperator || i == 1)) {
+           } else if (i < 2 && !operators.contains(item) && !item.equals(")") && minusFlag && ( lastOperator || i == 1)) {
+
+               // Set the number to be itself + (-)
+               expressionList.set(i,"-"+expressionList.get(i));
+               // Remove the previous (-) as we added it to the number
+               expressionList.remove(i - 1);
+               minusFlag = false;
+               lastOperator = false;
+
+           }else if (!operators.contains(item) && !item.equals(")") && minusFlag && !expressionList.get(i-2).equals(")") && ( lastOperator || i == 1)) {
 
                // Set the number to be itself + (-)
                expressionList.set(i,"-"+expressionList.get(i));
@@ -70,6 +79,11 @@ public class ArithmeticCalculator extends Calculator {
                minusFlag = false;
 
            }
+       }
+
+       // Handle + edge Case
+       if (expressionList.getFirst().equals("+")) {
+           expressionList.removeFirst();
        }
 
        System.out.printf("%nWe now check the list for any double minuses and other small things %nResulting list after the check:  %s%n", expressionList);
