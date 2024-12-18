@@ -152,7 +152,7 @@ public class SECalculator extends Calculator{
             k = scanner.nextInt();
             setExpressionNumber(k);
         } catch (Exception e) {
-            throw new Exception("Invalid input must be a number please try again");
+            throw new Exception("Invalid input, must be a number please try again");
         }
         scanner.nextLine();
 
@@ -200,14 +200,14 @@ public class SECalculator extends Calculator{
             double newC3 = c3 - (L2 * c1);
 
             if (Math.abs(newB2) < 1e-9) { // treat near-zero values as zero to avoid floating-point precision errors
-                throw new Exception("Division by zero encountered during Gaussian elimination.");
+                throw new Exception("A problem happened while solving because we tried to divide by zero, and dividing by zero is not allowed in math.");
             }
 
             double L3 = newB3 / newB2;
             double finalC3 = newC3 - (L3 * newC2);
 
             if (Math.abs(finalC3) < 1e-9) { // treat near-zero values as zero to avoid floating-point precision errors
-                throw new Exception("System cannot be solved: determinant is zero.");
+                throw new Exception("The system can’t be solved because something important in the math, called the determinant, is zero, which means there’s no unique answer.");
             }
 
             double g1 = d1;
