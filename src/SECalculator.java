@@ -7,14 +7,14 @@ public class SECalculator extends Calculator{
 
     private Scanner scanner = new Scanner(System.in);
 
-    //Coefficients for each expression
+    //Initialised coefficients for each expression
     private double a1 = 0, b1 = 0, c1 = 0, d1 = 0;
     private double a2 = 0, b2 = 0, c2 = 0, d2 = 0;
     private double a3 = 0, b3 = 0, c3 = 0, d3 = 0;
 
     private int expressionNumber; //how many variables in the equation
 
-    //
+    //getting expression from calculator, initialises it to nothing
     public SECalculator() {
         super("");
     }
@@ -44,16 +44,19 @@ public class SECalculator extends Calculator{
             for (int i = 0; i < expression.size(); i++) {
                 String item = expression.get(i); //gets the current element in the list
                 if (item.equals("x")) {
-                    String coefficient = (i > 0) ? expression.get(i - 1) : "";
+                    //checks if there is a character or number before the variable
+                    String coefficient = (i > 0) ? expression.get(i - 1) : "";//if no number is there, then it sets it to an empty string
 
-                    if (coefficient.isEmpty()) {
+                    //if no number or operator is there
+                    if (coefficient.isEmpty()) { // eg x + ... = ...
                         a = 1;
-                    } else if(coefficient.equals("+")) {
+                    } else if(coefficient.equals("+")) { //if there is a + before the variable eg ... + x = ...
                         a = 1;
-                    }else if(coefficient.equals("-")) {
+                    }else if(coefficient.equals("-")) { //if there is a - before the variable eg ... - x = ...
                         a = -1;
                     }else {
                         try {
+                            //get teh coefficient
                             a = Double.parseDouble(coefficient);
                         } catch (NumberFormatException e) {
                             throw new Exception("Invalid coefficient for x.");
@@ -139,6 +142,7 @@ public class SECalculator extends Calculator{
         System.out.print("\nHow many variables 1,2 or 3: ");
 
         try {
+            //gets how many variables
             k = scanner.nextInt();
             setExpressionNumber(k);
         } catch (Exception e) {
@@ -161,24 +165,26 @@ public class SECalculator extends Calculator{
         }
 
 
-        if (k == 1) {
-            if (a1 < 1e-9) {
+        if (k == 1) {// for expressions with 1 variable
+            if (a1 < 1e-9) { // Treat near-zero values as zero to avoid floating-point precision errors and instability.
                 System.out.println("No solution or infinite solutions exist.");
             } else {
                 double x = d1 / a1;
                 response = "Solution: \nx = " + x;
             }
-        } else if (k == 2) {
-            double determinant = Math.abs((a1 * b2) - (a2 * b1));
+        } else if (k == 2) { // for expressions with 2 variables
+            double determinant = (a1 * b2) - (a2 * b1);//finds determinant
 
-            if (determinant < 1e-9) {
+            if (determinant < 1e-9 && determinant > -1e-9) { // treat near-zero values as zero to avoid floating-point precision errors
                 throw new Exception("No unique solution exists (either no solution or infinitely many solutions).");
             } else {
-                double x = (d1 * b2 - d2 * b1) / determinant;
-                double y = (a1 * d2 - a2 * d1) / determinant;
+                double x = ((d1 * b2) + (d2 * -b1)) / determinant;
+                double y = ((a1 * d2) + (-a2 * d1)) / determinant;
                 response = "Solution: \nx = " + x + "\ny = " + y;
             }
-        } else if (k == 3) {
+        } else if (k == 3) { // for expressions with 3 variables
+
+
             double L1 = a2 / a1;
             double newB2 = b2 - (L1 * b1);
             double newC2 = c2 - (L1 * c1);
@@ -187,14 +193,14 @@ public class SECalculator extends Calculator{
             double newB3 = b3 - (L2 * b1);
             double newC3 = c3 - (L2 * c1);
 
-            if (Math.abs(newB2) < 1e-9) {
+            if (Math.abs(newB2) < 1e-9) { // treat near-zero values as zero to avoid floating-point precision errors
                 throw new Exception("Division by zero encountered during Gaussian elimination.");
             }
 
             double L3 = newB3 / newB2;
             double finalC3 = newC3 - (L3 * newC2);
 
-            if (Math.abs(finalC3) < 1e-9) {
+            if (Math.abs(finalC3) < 1e-9) { // treat near-zero values as zero to avoid floating-point precision errors
                 throw new Exception("System cannot be solved: determinant is zero.");
             }
 
