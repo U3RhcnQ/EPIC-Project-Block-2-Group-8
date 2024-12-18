@@ -53,7 +53,7 @@ public class InputParser {
                     openBracketCount++;
                     System.out.println("Open Bracket +1: "+ openBracketCount);
 
-                } else if (i == 0 && !c.equals("-")) {
+                } else if (i == 0 && !c.equals("-") && !c.equals("x") && !c.equals("y") && !c.equals("z")) {
                     throw new PrettyException("It looks like you have a operator "+c+" at the start of your expression with no number before it", expression, i);
                 }
 
