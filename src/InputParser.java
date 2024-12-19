@@ -34,8 +34,8 @@ public class InputParser {
                 if (c.equals("(") && lastCharacter.equals(")")) {
                     throw new PrettyException("It looks like you have two sets of brackets with no operator between each other", expression, i);
 
-                } else if (c.equals("(") && !operators.contains(lastCharacter)) {
-                    throw new PrettyException("It looks like you have a number and a  open bracket without a operator between", expression, i);
+                } else if (c.equals("(") && !operators.contains(lastCharacter) && !lastCharacter.equals("(")) {
+                    throw new PrettyException("It looks like you have a number and a open bracket without a operator between", expression, i);
 
                 }else if (i == 0 && c.equals(")")) {
                     throw new PrettyException("It looks like you have an closing bracket before any number", expression, i);
@@ -90,7 +90,7 @@ public class InputParser {
                     if (i == 1 && doubleMinusFlag) {
                         throw new PrettyException("It looks like you have double - at the start of the expression", expression, i);
 
-                    } else if (i > 1) {
+                    } else if (i > 1 && c.equals("-")) {
 
                         if (operators.contains(expressionList.get(i-2)) || expressionList.get(i-2).equals("(") || expressionList.get(i-2).equals(")") || expressionList.get(i-2).equals("-(")) {
                             throw new PrettyException("It looks like you have a double minus after another operator "+c, expression, i);
