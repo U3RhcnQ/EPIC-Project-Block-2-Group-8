@@ -106,10 +106,6 @@ public class SECalculator extends Calculator{
             throw new Exception(e.getMessage());
         }
 
-
-
-
-
         //Assigning the coefficient to the variable
         switch (getExpressionNumber()) {
             case 1: // 1 Variables
@@ -172,7 +168,7 @@ public class SECalculator extends Calculator{
 
 
         if (k == 1) {// for expressions with 1 variable
-            if (a1 < 1e-9) { // Treat near-zero values as zero to avoid floating-point precision errors and instability.
+            if (a1 < 1e-9 && a1> -1e-9) { // Treat near-zero values as zero to avoid floating-point precision errors and instability.
                 System.out.println("No solution or infinite solutions exist.");
             } else {
                 double x = d1 / a1;
@@ -190,7 +186,7 @@ public class SECalculator extends Calculator{
             }
         } else if (k == 3) { // for expressions with 3 variables
 
-
+            //Lg=d
             double L1 = a2 / a1;
             double newB2 = b2 - (L1 * b1);
             double newC2 = c2 - (L1 * c1);
