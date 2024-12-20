@@ -16,7 +16,7 @@ public class Integration extends Calculator {
         setExpressionList(InputParser.parseFromString(inputEquation, orderOfOperations, "x+-*/^=")); // Method from Calculator that sets the Arraylist ExpressionList
         // parseFromString is a method from InputParser that takes a string and converts to an ArrayList of elements and operands
     }
-
+    
     // Override the abstract method solve() from Calculator.java
     @Override
     public String solve() throws Exception {
@@ -39,6 +39,7 @@ public class Integration extends Calculator {
                 equation = equation + integrate(item);
             }
         }
+        equation += "+c";
         System.out.println();
         System.out.printf("This leaves us with the equation: %s%n", equation);
 
